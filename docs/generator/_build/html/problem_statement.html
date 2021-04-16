@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Постановка задачи &#8212; документация Телеграм бот 0.1</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+    <link rel="next" title="Интерфейсная модель" href="interface_model.html" />
+    <link rel="prev" title="Участники" href="participants.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>Постановка задачи<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Написать телеграм бота, который будет обладать примерно следующим функционалом (возможно сужение или расширение функционала).</p>
+<div class="section" id="id2">
+<h2>Напоминания:<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="simple">
+<dt>Напоминаем пользователю в определенные день и час о том, о чём он заранее просил напомнить.</dt><dd><ul class="simple">
+<li><p>ЖКХ</p></li>
+<li><p>подписки на сервисы (музыка, сериалы)</p></li>
+<li><p>мобильная связь</p></li>
+<li><p>приём лекарств</p></li>
+<li><p>планер</p></li>
+<li><p>дни рождения</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="id3">
+<h2>Счётчик расходов/доходов<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>При добавлении «расходов» пользователь будет указывать их категорию – на что были потрачены деньги. Используя эту информацию, мы сможем в конце месяца предоставить обзор расходов по категориям и, возможно, советы, как сэкономить в будущем месяце.</p>
+</div>
+<div class="section" id="id4">
+<h2>Списки покупок<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Один либо несколько списков. Можно добавлять позиции или новые списки, либо удалять позиции/списки, когда необходимость в них теряется.</p>
+</div>
+<div class="section" id="id5">
+<h2>Погода<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
+<p>При первом использовании просим пользователя указать город проживания, потом его можно будет сменить. Каждый день пользователь получает информацию о погоде в его городе. Также он может попросить информацию в любой момент с помощью кнопки/команды, причем не только на день, но и на неделю. Предполагается использование сайта с прогнозом погоды, чтобы вывести для пользователя нужную информацию.</p>
+</div>
+<div class="section" id="id6">
+<h2>Список ближайших премьер<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Пользователь выбирает категорию (кино, театр, концерты). Выводим первые <code class="docutils literal notranslate"><span class="pre">n</span></code> премьер. Если пользователь жмёт кнопку «Ещё», выводим следующие <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">&lt;=</span> <span class="pre">n</span></code> премьер, и так, пока они не закончатся. Информацию получаем с помощью сайта (к примеру, <a class="reference external" href="https://www.afisha.ru/">Афиша</a>).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Ещё</span> <span class="n">не</span> <span class="n">решили</span><span class="p">,</span> <span class="n">будет</span> <span class="n">ли</span> <span class="n">лучше</span> <span class="n">это</span> <span class="n">делать</span> <span class="n">сразу</span> <span class="n">при</span> <span class="n">запросе</span> <span class="n">пользователя</span>
+<span class="n">или</span> <span class="n">же</span> <span class="n">каждый</span> <span class="n">день</span> <span class="n">обновлять</span> <span class="n">собственную</span> <span class="n">базу</span> <span class="n">данных</span> <span class="n">данными</span> <span class="n">с</span> <span class="n">сайта</span><span class="p">,</span>
+<span class="n">чтобы</span> <span class="n">задержка</span> <span class="n">между</span> <span class="n">запросом</span> <span class="n">пользователя</span> <span class="n">и</span> <span class="n">ответом</span> <span class="n">бота</span> <span class="n">была</span> <span class="n">минимальной</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>Рецепты по ингредиентам<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Пользователь вводит ингредиенты, бот выводит один рецепт (название, фотография, ссылка на рецепт). Если пользователю не нравится этот рецепт, он жмет на кнопку «Ещё», процесс повторяется для тех же ингредиентов. Планируется создать собственную базу данных рецептов с помощью какого-нибудь сайта.</p>
+</div>
+<div class="section" id="id9">
+<h2>Новости<a class="headerlink" href="#id9" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Даём пользователю на выбор несколько источников. После выбора мы выводим новостные заголовки и ссылки на статьи с главной страницы сайта источника.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Телеграм бот</a></h1>
+
+
+
+
+
+
+
+
+<h3>Навигация</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="participants.html">Участники</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Постановка задачи</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Напоминания:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Счётчик расходов/доходов</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">Списки покупок</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">Погода</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">Список ближайших премьер</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">Рецепты по ингредиентам</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">Новости</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="interface_model.html">Интерфейсная модель</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_doc.html">Документация</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="participants.html" title="предыдущая глава">Участники</a></li>
+      <li>Next: <a href="interface_model.html" title="следующая глава">Интерфейсная модель</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Чернышов Михаил Михайлович, Казантаев Алексей Дмитриевич, Коваленко Анастасия Павловна, Ветрова Екатерина Александровна.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/problem_statement.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
