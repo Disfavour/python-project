@@ -5,6 +5,10 @@ from aiogram.utils.exceptions import BotBlocked
 bot = aiogram.Bot(token="1796535419:AAFMLfG35KAugeQqhDmWdApx5pZMnK43fDU")
 dp = aiogram.Dispatcher(bot)
 
+functions = ["Гороскоп", "Погода", "Новости",
+             "Напоминания", "Счётчик расходов/доходов", "Списки покупок",
+             "Список ближайших премьер", "Рецепты по ингредиентам"]
+
 
 @dp.message_handler(commands="help")
 async def get_help(message: aiogram.types.Message):
@@ -12,13 +16,24 @@ async def get_help(message: aiogram.types.Message):
     keyboard = aiogram.types.InlineKeyboardMarkup()
     keyboard.add(aiogram.types.InlineKeyboardButton(text="Проект", url="https://github.com/Disfavour/python-project"))
     await message.reply("/help\n"
-                        "/dice", reply_markup=keyboard)
+                        "/dice\n"
+                        "/start",
+                        reply_markup=keyboard)
 
 
 @dp.message_handler(commands="dice")
 async def cmd_dice(message: aiogram.types.Message):
     """Кинуть кубик."""
     await message.answer_dice(emoji="🎲")
+
+
+@dp.message_handler(commands="start")
+async def cmd_start(message: aiogram.types.Message):
+    """Показать функции пользователю."""
+    keyboard = aiogram.types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+    buttons = functions
+    keyboard.add(*buttons)
+    await message.answer("Выберите функцию", reply_markup=keyboard)
 
 
 @dp.message_handler()
