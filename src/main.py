@@ -6,9 +6,25 @@ bot = aiogram.Bot(token="1796535419:AAFMLfG35KAugeQqhDmWdApx5pZMnK43fDU")
 dp = aiogram.Dispatcher(bot)
 
 
+@dp.message_handler(commands="help")
+async def get_help(message: aiogram.types.Message):
+    """Получить помощь."""
+    keyboard = aiogram.types.InlineKeyboardMarkup()
+    keyboard.add(aiogram.types.InlineKeyboardButton(text="Проект", url="https://github.com/Disfavour/python-project"))
+    await message.reply("/help\n"
+                        "/dice", reply_markup=keyboard)
+
+
+@dp.message_handler(commands="dice")
+async def cmd_dice(message: aiogram.types.Message):
+    """Кинуть кубик."""
+    await message.answer_dice(emoji="🎲")
+
+
 @dp.message_handler()
 async def echo(message: aiogram.types.Message):
-    await message.answer(message.text)
+    """Не распознаная команда."""
+    await message.answer("Не распознано " + message.text)
 
 
 @dp.errors_handler(exception=BotBlocked)
