@@ -1,7 +1,13 @@
 import aiogram
+import configparser
 
 
-bot = aiogram.Bot(token="1796535419:AAFMLfG35KAugeQqhDmWdApx5pZMnK43fDU")
+config = configparser.ConfigParser()
+config.read('bot_info.ini')
+config.sections()
+TOKEN = config["BOT"]["token"]
+
+bot = aiogram.Bot(token=TOKEN)
 dp = aiogram.Dispatcher(bot)
 
 if __name__ == "__main__":
