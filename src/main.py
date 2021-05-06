@@ -1,10 +1,15 @@
+import aiogram
+from bot import dp
 from aiogram.utils.exceptions import BotBlocked
-from horoscope import *
+import horoscope
+import news
+import weather
+import afisha
 
 
 options = ["Гороскоп", "Погода", "Новости",
            "Напоминания", "Счётчик расходов/доходов", "Списки покупок",
-           "Список ближайших премьер", "Рецепты по ингредиентам"]
+           "Афиша", "Рецепты по ингредиентам"]
 
 
 @dp.message_handler(commands="help")
