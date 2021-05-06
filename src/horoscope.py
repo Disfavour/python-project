@@ -1,29 +1,31 @@
 import aiogram
 from bot import dp
+from aiogram.utils.callback_data import CallbackData
+import parsing
 
 
-zodiac_signs = ["Овен", "Телец", "Близнецы", "Рак", "Лев", "Дева", "Весы",
-                "Скорпион", "Змееносец", "Стрелец", "Козерог", "Водолей", "Рыбы"]
-
-
-def get_keyboard_from_list(items):
-    keyboard = aiogram.types.InlineKeyboardMarkup()
-    tmp = []
-    for item in items:
-        tmp.append(aiogram.types.InlineKeyboardButton(text=item, callback_data=item))
-    keyboard.add(*tmp)
-    return keyboard
+callback_horoscope = CallbackData("horoscope", "url")
 
 
 @dp.message_handler(regexp=r"^Гороскоп$")
 async def horoscope(message: aiogram.types.Message):
     """Показать все знаки гороскопа."""
-    await message.answer("Выберите ваш знак зодиака", reply_markup=get_keyboard_from_list(zodiac_signs))
+    d = parsing.get_horoscope_signs()
+    keyboard = aiogram.types.InlineKeyboardMarkup()
+    tmp = []
+    for key, value in d.items():
+        tmp.append(aiogram.types.InlineKeyboardButton(
+            text=key, callback_data=callback_horoscope.new(url=value)))
+    keyboard.add(*tmp)
+    await message.answer("Выберите ваш знак зодиака", reply_markup=keyboard)
 
 
-@dp.callback_query_handler(text=zodiac_signs)
-async def send_random_value(call: aiogram.types.CallbackQuery):
-    await call.message.answer(call.data)
+@dp.callback_query_handler(callback_horoscope.filter())
+async def handle_horoscope_callback(call: aiogram.types.CallbackQuery, callback_data: dict):
+    url = callback_data["url"]
+    text = parsing.parse_horoscope_sign(url)
+    await call.message.edit_text(text)
+    await call.answer()
 
 
 if __name__ == "__main__":
