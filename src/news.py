@@ -1,35 +1,49 @@
 import aiogram
-from bot import dp
-from aiogram.utils.callback_data import CallbackData
+import stuff
 import parsing
 
 
-callback_news = CallbackData("news", "count")
+news_obj = parsing.NEWS()
+ID_NEWS = "news"
 
 
-@dp.message_handler(regexp=r"^Новости$")
-async def horoscope(message: aiogram.types.Message):
-    """Показать все знаки гороскопа."""
-    keyboard = aiogram.types.InlineKeyboardMarkup()
-    d = parsing.parse_news()
-    for number, (key, value) in enumerate(d.items()):
-        if number < 10:
-            keyboard.add(
-                aiogram.types.InlineKeyboardButton(text=key, url=parsing.url_news_part + value))
-    keyboard.add(aiogram.types.InlineKeyboardButton(text="Ещё", callback_data=callback_news.new(count=1)))
-    await message.answer("Новости:", reply_markup=keyboard)
+async def news_handle(message: aiogram.types.Message):
+    """Показать новости."""
+    news_obj.make_zero()
+
+    data = news_obj.get_data_smart()
+    if data:
+        for item in data:
+            if item != data[-1]:
+                await message.answer(item, parse_mode=aiogram.types.ParseMode.HTML)
+            else:
+                await message.answer(
+                    item, parse_mode=aiogram.types.ParseMode.HTML,
+                    reply_markup=stuff.get_more_inline_keyboard(ID_NEWS))
+    else:
+        raise Exception()
 
 
-@dp.callback_query_handler(callback_news.filter())
-async def handle_news_callback(call: aiogram.types.CallbackQuery, callback_data: dict):
-    keyboard = aiogram.types.InlineKeyboardMarkup()
-    d = parsing.parse_news()
-    for number, (key, value) in enumerate(d.items()):
-        if number > 10:
-            keyboard.add(
-                aiogram.types.InlineKeyboardButton(text=key, url=parsing.url_news_part + value))
-    await call.message.edit_reply_markup(reply_markup=keyboard)
+async def news_handle_callback(call: aiogram.types.CallbackQuery):
+    data = news_obj.get_data_smart()
+    if data:
+        await call.message.delete_reply_markup()
+        for item in data:
+            if item != data[-1]:
+                await call.message.answer(item, parse_mode=aiogram.types.ParseMode.HTML)
+            else:
+                await call.message.answer(
+                    item, parse_mode=aiogram.types.ParseMode.HTML,
+                    reply_markup=stuff.get_more_inline_keyboard(ID_NEWS))
+    else:
+        await call.message.delete_reply_markup()
+
     await call.answer()
+
+
+def register_handlers(dp: aiogram.Dispatcher) -> None:
+    dp.register_message_handler(news_handle, regexp=r"^Новости$")
+    dp.register_callback_query_handler(news_handle_callback, text=ID_NEWS)
 
 
 if __name__ == "__main__":
