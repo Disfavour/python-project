@@ -1,56 +1,72 @@
 import aiogram
-from bot import dp
 from aiogram.utils.exceptions import BotBlocked
+
+import bot
+import stuff
+
+import afisha
 import horoscope
 import news
 import weather
-import afisha
 
 
-options = ["Гороскоп", "Погода", "Новости",
-           "Напоминания", "Счётчик расходов/доходов", "Списки покупок",
-           "Афиша", "Рецепты по ингредиентам"]
-
-
-@dp.message_handler(commands="help")
 async def get_help(message: aiogram.types.Message):
-    """Получить помощь."""
+    """Показать помощь."""
     keyboard = aiogram.types.InlineKeyboardMarkup()
     keyboard.add(aiogram.types.InlineKeyboardButton(text="Проект", url="https://github.com/Disfavour/python-project"))
-    await message.reply("/help\n"
-                        "/dice\n"
-                        "/start",
-                        reply_markup=keyboard)
+    await message.reply("Документацию можно найти здесь", reply_markup=keyboard)
 
 
-@dp.message_handler(commands="start")
 async def cmd_start(message: aiogram.types.Message):
-    """Показать функции пользователю."""
+    """Показать функции."""
     keyboard = aiogram.types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-    buttons = options
+    buttons = stuff.base_options
     keyboard.add(*buttons)
-    await message.answer("Выберите функцию", reply_markup=keyboard)
+    await message.reply("Выберите функцию", reply_markup=keyboard)
 
 
-@dp.message_handler(commands="dice")
 async def cmd_dice(message: aiogram.types.Message):
     """Кинуть кубик."""
-    await message.answer_dice(emoji="🎲")
+    await message.reply_dice(emoji="🎲")
 
 
-@dp.message_handler()
 async def echo(message: aiogram.types.Message):
-    """Не распознаная команда."""
-    await message.answer("Не распознано '" + message.text + "'")
+    """Показать, что команда не распознана."""
+    await message.reply("Не распознано '" + message.text + "'")
 
 
-@dp.errors_handler(exception=BotBlocked)
 async def error_bot_blocked(update: aiogram.types.Update, exception: BotBlocked):
-    """Если заблокировали бота."""
+    """Обработка блока бота."""
     # Здесь можно как-то обработать блокировку, например, удалить пользователя из БД
     print(f"Меня заблокировал пользователь!\nСообщение: {update}\nОшибка: {exception}")
     return True
 
 
+class REGISTRATION:
+    def __init__(self, dp):
+        self.dp = dp
+
+    def start(self) -> None:
+        self.register_handlers()
+        aiogram.executor.start_polling(self.dp, skip_updates=True)
+
+    def register_handlers(self) -> None:
+        horoscope.register_handlers(self.dp)
+        news.register_handlers(self.dp)
+        weather.register_handlers(self.dp)
+        afisha.register_handlers(self.dp)
+
+        # Это последнее, иначе эхо-обработчик перебьёт другие.
+        self.register_base_handlers()
+
+    def register_base_handlers(self) -> None:
+        self.dp.register_message_handler(get_help, commands="help")
+        self.dp.register_message_handler(cmd_start, commands="start")
+        self.dp.register_message_handler(cmd_dice, commands="dice")
+        self.dp.register_message_handler(echo)
+        self.dp.register_errors_handler(error_bot_blocked, exception=BotBlocked)
+
+
 if __name__ == "__main__":
-    aiogram.executor.start_polling(dp, skip_updates=True)
+    obj = REGISTRATION(bot.dp)
+    obj.start()
