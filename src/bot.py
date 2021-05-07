@@ -1,3 +1,4 @@
+"""Объект бота."""
 import aiogram
 import configparser
 

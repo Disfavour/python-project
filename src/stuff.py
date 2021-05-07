@@ -1,3 +1,4 @@
+"""Полезные данные и функции."""
 import aiogram
 
 
@@ -7,6 +8,11 @@ base_options = ["Гороскоп", "Новости", "Погода", "Афиш�
 
 
 def get_inline_keyboard_from_list(items: list) -> aiogram.types.InlineKeyboardMarkup:
+    """
+    Получить инлайн клавиатуру из листа.
+
+    :param items: список с стрингами, которые станут надписями и колбеком кнопок
+    """
     keyboard = aiogram.types.InlineKeyboardMarkup()
     buttons = []
     for item in items:
@@ -16,6 +22,11 @@ def get_inline_keyboard_from_list(items: list) -> aiogram.types.InlineKeyboardMa
 
 
 def get_more_inline_keyboard(callback_data: str) -> aiogram.types.InlineKeyboardMarkup:
+    """
+    Получить инлайн клавиатуру с кнопкой "Ещё".
+
+    :param callback_data: колбек для кнопки
+    """
     keyboard = aiogram.types.InlineKeyboardMarkup()
     keyboard.add(aiogram.types.InlineKeyboardButton(text="Ещё", callback_data=callback_data))
     return keyboard

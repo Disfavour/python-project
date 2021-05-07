@@ -1,3 +1,4 @@
+"""Обработка новостей."""
 import aiogram
 import stuff
 import parsing
@@ -8,9 +9,12 @@ ID_NEWS = "news"
 
 
 async def news_handle(message: aiogram.types.Message):
-    """Показать новости."""
-    news_obj.make_zero()
+    """
+    Показать новости.
 
+    :param message: сообщение
+    """
+    news_obj.make_zero()
     data = news_obj.get_data_smart()
     if data:
         for item in data:
@@ -25,6 +29,11 @@ async def news_handle(message: aiogram.types.Message):
 
 
 async def news_handle_callback(call: aiogram.types.CallbackQuery):
+    """
+    Обработать нажатие кнопки.
+
+    :param call: вызов
+    """
     data = news_obj.get_data_smart()
     if data:
         await call.message.delete_reply_markup()
@@ -37,11 +46,15 @@ async def news_handle_callback(call: aiogram.types.CallbackQuery):
                     reply_markup=stuff.get_more_inline_keyboard(ID_NEWS))
     else:
         await call.message.delete_reply_markup()
-
     await call.answer()
 
 
 def register_handlers(dp: aiogram.Dispatcher) -> None:
+    """
+    Зарегистрировать обработчики.
+
+    :param dp: диспетчер
+    """
     dp.register_message_handler(news_handle, regexp=r"^Новости$")
     dp.register_callback_query_handler(news_handle_callback, text=ID_NEWS)
 
