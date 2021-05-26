@@ -9,6 +9,7 @@ import afisha
 import horoscope
 import news
 import weather
+import recipes
 
 
 async def get_help(message: aiogram.types.Message):
@@ -86,6 +87,7 @@ class REGISTRATION:
         news.register_handlers(self.dp)
         weather.register_handlers(self.dp)
         afisha.register_handlers(self.dp)
+        recipes.register_handlers(self.dp)
 
         # Это последнее, иначе эхо-обработчик перебьёт другие.
         self.register_base_handlers()
