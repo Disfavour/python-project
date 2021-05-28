@@ -1,46 +1,46 @@
 from bs4 import BeautifulSoup
 import requests
 import re
+import database
 
-url = "https://www.povarenok.ru/recipes/"
-headers = {
+
+URL = "https://www.povarenok.ru/recipes/"
+HEADERS = {
         "Accept": "*/*",
         "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:88.0) Gecko/20100101 Firefox/88.0"
 }
 
-#req = requests.get(url, headers=headers)
-#with open("index.html", "w") as file:
-#    file.write(req.text)
-
 
 def parse():
-    data = []
+    for num in range(1, 500):
+        if num == 1:
+            url = URL
+        else:
+            url = URL + f"~{num}/"
+        req = requests.get(url, headers=HEADERS)
+        src = req.text
 
-    with open("index.html") as file:
-        src = file.read()
+        data = []
+        soup = BeautifulSoup(src, "lxml")
+        names = soup.find_all("h2")
+        for i in names:
+            rec = dict()
+            tmp = i.find("a")
+            if tmp == None:
+                break
+            rec["name"] = tmp.text
+            rec["link"] = tmp.get("href")
+            data.append(rec)
 
-    soup = BeautifulSoup(src, "lxml")
-    names = soup.find_all("h2")
-    for i in names:
-        rec = dict()
-        tmp = i.find("a")
-        if tmp == None:
-            break
-        rec["Название блюда"] = tmp.text
-        rec["Ссылка на рецепт"] = tmp.get("href")
-        data.append(rec)
+        ingr = soup.find_all("div", class_=re.compile("ingr_fast"))
+        for k, i in enumerate(ingr):
+            ingrs = ""
+            tmp = i.find_all("span")
+            for j in tmp:
+                ingrs += j.text + ","
+            data[k]["ingrs"] = ingrs
+        
 
-
-    ingr = soup.find_all("div", class_=re.compile("ingr_fast"))
-   # print(ingr)
-    for k, i in enumerate(ingr):
-        lst = []
-        tmp = i.find_all("span")
-        for j in tmp:
-            lst.append(j.text)
-            #print(j.text)
-        data[k]["Ингредиенты"] = lst
-
-    #for i in data:
-    #    print(i)
-    return data
+        for recipe in data:
+            database.add_line(recipe["name"], recipe["ingrs"], recipe["link"])
+            print(recipe)
