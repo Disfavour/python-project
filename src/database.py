@@ -69,6 +69,28 @@ def add_line(name, ingrs, link):
             connection.close()
 
 
+def fetch_by_id(id):
+    try:
+        connection = psycopg2.connect(
+                user=USER,
+                password=PASSWORD,
+                host="127.0.0.1",
+                port="5432",
+                database=DATABASE)
+        cursor = connection.cursor()
+        cursor.execute(f"SELECT * FROM recipes WHERE id = {id};")
+        res = cursor.fetchall()
+    except (Exception, Error) as error:
+        print("Ошибка при работе с базой данных ", error)
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
+            return res
+        return None
+
+
 
 if __name__ == "__main__":
-    create_table()
+    pass
+    #create_table()
