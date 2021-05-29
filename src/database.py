@@ -90,7 +90,28 @@ def fetch_by_id(id):
         return None
 
 
+def fetch_by_ingreds(ingreds):
+    try:
+        connection = psycopg2.connect(
+                user=USER,
+                password=PASSWORD,
+                host="127.0.0.1",
+                port="5432",
+                database=DATABASE)
+        cursor = connection.cursor()
+        cursor.execute(f"SELECT * FROM recipes WHERE ingredients = '{ingreds}';")
+        res = cursor.fetchall()
+    except (Exception, Error) as error:
+        print("Ошибка при работе с базой данных ", error)
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
+            return res
+        return None
+
+
 
 if __name__ == "__main__":
     pass
-    #create_table()
+    create_table()

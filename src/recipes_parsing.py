@@ -6,13 +6,13 @@ import database
 
 URL = "https://www.povarenok.ru/recipes/"
 HEADERS = {
-        "Accept": "*/*",
-        "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:88.0) Gecko/20100101 Firefox/88.0"
+    "Accept": "*/*",
+    "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:88.0) Gecko/20100101 Firefox/88.0"
 }
 
 
 def parse():
-    for num in range(1, 500):
+    for num in range(1, 200):
         if num == 1:
             url = URL
         else:
@@ -36,9 +36,11 @@ def parse():
         for k, i in enumerate(ingr):
             ingrs = ""
             tmp = i.find_all("span")
+            ingreds = []
             for j in tmp:
-                ingrs += j.text + ","
-            data[k]["ingrs"] = ingrs
+                ingreds.append(j.text)
+            ingreds.sort()
+            data[k]["ingrs"] = ",".join(ingreds)
         
 
         for recipe in data:
