@@ -27,7 +27,7 @@ def form_answer(recipe):
 
 
 async def recipes_handler(message: aiogram.types.Message):
-    await message.answer("Нужен рецепт с определенными ингредиентами или любой?", 
+    await message.answer(fmt.text("Нужен рецепт с определенными ингредиентами или любой?"), 
                             reply_markup=get_inline_keyboard_from_list(CHOICE))
 
 
@@ -40,8 +40,11 @@ async def recipes_handle_callback(call: aiogram.types.CallbackQuery):
             parse_mode=aiogram.types.ParseMode.HTML,
             reply_markup=get_more_inline_keyboard(choice))
     elif choice == "По ингредиентам":
-        await call.message.answer(fmt.text("Введите ингредиенты с большой буквы через запятую,\
-            начиная со слова 'Ингредиенты:'\n Пример: \n'Ингредиенты:  Вишня, Корица, Сахар'"),
+        await call.message.answer(fmt.text("Введите ингредиенты с большой буквы через запятую, " + \
+                "начиная со слова 'Ингредиенты:'\n Пример: \n" +\
+                "'Ингредиенты:  Вишня, Корица, Сахар'\n" + \
+                "По возможности уточняйте название ингредиента: " + \
+                "вместо 'Перец' введите 'Перец черный' и т.п."),
                                 parse_mode=aiogram.types.ParseMode.HTML)
 
 
@@ -63,7 +66,7 @@ async def recipes_handle_ingreds(message: aiogram.types.Message):
                     parse_mode=aiogram.types.ParseMode.HTML,
                     reply_markup=get_another_inline_keyboard(NEXT))
         else:
-            await message.answer("Нет рецептов с таким набором ингредиентов", 
+            await message.answer(fmt.text("Нет рецептов с таким набором ингредиентов"), 
                                 parse_mode=aiogram.types.ParseMode.HTML)
 
 
@@ -76,14 +79,14 @@ async def recipes_handle_ingreds_callback(call: aiogram.types.CallbackQuery):
                     parse_mode=aiogram.types.ParseMode.HTML,
                     reply_markup=get_another_inline_keyboard(call.data))
     else:
-        await call.message.answer("Рецепты с такими ингредиентами закончились", 
+        await call.message.answer(fmt.text("Рецепты с такими ингредиентами закончились"), 
                             parse_mode=aiogram.types.ParseMode.HTML)
 
 
 
 
 def register_handlers(dp: aiogram.Dispatcher) -> None:
-    dp.register_message_handler(recipes_handler, regexp=r"^Рецепты по ингредиентам$")
+    dp.register_message_handler(recipes_handler, regexp=r"^Кулинарные рецепты$")
     dp.register_callback_query_handler(recipes_handle_callback, text=CHOICE)
     dp.register_message_handler(recipes_handle_ingreds, regexp=(r"Ингредиенты:(.)*"))
     dp.register_callback_query_handler(recipes_handle_ingreds_callback, text=NEXT)
