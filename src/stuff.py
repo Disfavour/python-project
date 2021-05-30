@@ -32,5 +32,17 @@ def get_more_inline_keyboard(callback_data: str) -> aiogram.types.InlineKeyboard
     return keyboard
 
 
+def get_another_inline_keyboard(callback_data: str) -> aiogram.types.InlineKeyboardMarkup:
+    """
+    Получить инлайн клавиатуру с кнопкой "Следующий".
+
+    :param callback_data: колбек для кнопки
+    """
+    keyboard = aiogram.types.InlineKeyboardMarkup()
+    keyboard.add(aiogram.types.InlineKeyboardButton(text="Следующий", callback_data=callback_data))
+    return keyboard
+
+
+
 if __name__ == "__main__":
     pass
