@@ -21,7 +21,6 @@ def create_base():
             con.close()
 
 
-
 def create_table():
     try:
         connection = psycopg2.connect(
@@ -31,12 +30,9 @@ def create_table():
                 port="5432",
                 database=DATABASE)
         cursor = connection.cursor()
-        cr_table = "CREATE TABLE recipes\
-                    (ID SERIAL,\
-                    RECIPE_NAME varchar(255) NOT NULL,\
-                    INGREDIENTS text NOT NULL,\
-                    LINK varchar(255) NOT NULL,\
-                    PRIMARY KEY (ID)\
+        cr_table = "CREATE TABLE recipes \
+                    (id SERIAL, \
+                    recipe JSONB NOT NULL \
                     );"
         cursor.execute(cr_table)
         connection.commit()
@@ -48,7 +44,7 @@ def create_table():
             connection.close()
 
 
-def add_line(name, ingrs, link):
+def add_line(recipe):
     try:
         connection = psycopg2.connect(
                 user=USER,
@@ -57,9 +53,10 @@ def add_line(name, ingrs, link):
                 port="5432",
                 database=DATABASE)
         cursor = connection.cursor()
-        cursor.execute(f"INSERT INTO recipes\
-                        (RECIPE_NAME, INGREDIENTS, LINK)\
-                        VALUES ('{name}', '{ingrs}', '{link}')")
+        cur_recipe = f"{recipe}".replace("\"", "*").replace("\'", "\"")
+        print(cur_recipe)
+        cursor.execute(f'INSERT INTO recipes (recipe) \
+                        VALUES (\'{cur_recipe}\');')
         connection.commit()
     except (Exception, Error) as error:
         print("Ошибка при работе с базой данных ", error)
@@ -99,7 +96,12 @@ def fetch_by_ingreds(ingreds):
                 port="5432",
                 database=DATABASE)
         cursor = connection.cursor()
-        cursor.execute(f"SELECT * FROM recipes WHERE ingredients = '{ingreds}';")
+        search = ""
+        for ingr in ingreds:
+            search += f"recipe -> 'ingrs' ? '{ingr}'"
+            if ingr != ingreds[-1]:
+                search += " AND "
+        cursor.execute(f"SELECT * FROM recipes WHERE {search};")
         res = cursor.fetchall()
     except (Exception, Error) as error:
         print("Ошибка при работе с базой данных ", error)

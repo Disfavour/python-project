@@ -12,7 +12,7 @@ HEADERS = {
 
 
 def parse():
-    for num in range(1, 200):
+    for num in range(1, 301):
         if num == 1:
             url = URL
         else:
@@ -39,10 +39,8 @@ def parse():
             ingreds = []
             for j in tmp:
                 ingreds.append(j.text)
-            ingreds.sort()
-            data[k]["ingrs"] = ",".join(ingreds)
+            data[k]["ingrs"] = ingreds
         
 
         for recipe in data:
-            database.add_line(recipe["name"], recipe["ingrs"], recipe["link"])
-            print(recipe)
+            database.add_line(recipe)
