@@ -40,13 +40,20 @@ async def recipes_handle_callback(call: aiogram.types.CallbackQuery):
             parse_mode=aiogram.types.ParseMode.HTML,
             reply_markup=get_more_inline_keyboard(choice))
     elif choice == "По ингредиентам":
-        await call.message.answer("Введите ингредиенты через запятую",
+        await call.message.answer(fmt.text("Введите ингредиенты с большой буквы через запятую,\
+            начиная со слова 'Ингредиенты:'\n Пример: \n'Ингредиенты:  Вишня, Корица, Сахар'"),
                                 parse_mode=aiogram.types.ParseMode.HTML)
 
 
 async def recipes_handle_ingreds(message: aiogram.types.Message):
         ingreds = message.text
         ingreds = ingreds.split(":")[1].split(",")
+        for k, ingr in enumerate(ingreds):
+            while ingr[0].isspace():
+                ingr = ingr[1:]
+            while ingr[-1].isspace():
+                ingr = ingr[:-1]
+            ingreds[k] = ingr
         global CNT, RECIPES_LIST
         RECIPES_LIST = database.fetch_by_ingreds(ingreds)
         CNT = 0
