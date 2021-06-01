@@ -43,6 +43,5 @@ def get_another_inline_keyboard(callback_data: str) -> aiogram.types.InlineKeybo
     return keyboard
 
 
-
 if __name__ == "__main__":
     pass
