@@ -1,9 +1,12 @@
+"""Функции для работы с базой данных."""
+
 import psycopg2
 from psycopg2 import Error
 from recipe_conf import USER, PASSWORD, DATABASE
 
 
-def create_base():
+def create_base() -> None:
+    """Создать базу данных."""
     try:
         con = psycopg2.connect(
                 user=USER,
@@ -13,6 +16,7 @@ def create_base():
         cursor = con.cursor()
         sql_cr_db = "create database postgres_db"
         cursor.execute(sql_cr_db)
+        con.commit()
     except (Exception, Error) as error:
         print("Ошибка при работе с базой данных ", error)
     finally:
@@ -21,7 +25,8 @@ def create_base():
             con.close()
 
 
-def create_table():
+def create_table() -> None:
+    """Создать таблицу в базе данных."""
     try:
         connection = psycopg2.connect(
                 user=USER,
@@ -44,7 +49,12 @@ def create_table():
             connection.close()
 
 
-def add_line(recipe):
+def add_line(recipe: dict) -> None:
+    """
+    Добавить запись в таблицу.
+
+    :param recipe: словарь, содержащий данные о рецепте
+    """
     try:
         connection = psycopg2.connect(
                 user=USER,
@@ -66,7 +76,12 @@ def add_line(recipe):
             connection.close()
 
 
-def fetch_by_id(id):
+def fetch_by_id(id: int) -> list:
+    """
+    Получить рецепт по id.
+
+    :param id: идентификатор
+    """
     try:
         connection = psycopg2.connect(
                 user=USER,
@@ -87,7 +102,12 @@ def fetch_by_id(id):
         return None
 
 
-def fetch_by_ingreds(ingreds):
+def fetch_by_ingreds(ingreds: list) -> list:
+    """
+    Найти все рецепты с ингредиентами из полученного списка.
+
+    :param ingreds: список ингредиентов
+    """
     try:
         connection = psycopg2.connect(
                 user=USER,
@@ -110,10 +130,7 @@ def fetch_by_ingreds(ingreds):
             cursor.close()
             connection.close()
             return res
-        return None
-
 
 
 if __name__ == "__main__":
-    pass
     create_table()

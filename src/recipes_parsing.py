@@ -1,3 +1,5 @@
+"""Парсинг сайта с рецептами."""
+
 from bs4 import BeautifulSoup
 import requests
 import re
@@ -11,7 +13,8 @@ HEADERS = {
 }
 
 
-def parse():
+def parse() -> None:
+    """Распарсить сайт с рецептами и сохранить данные в базу данных."""
     for num in range(1, 301):
         if num == 1:
             url = URL
@@ -26,7 +29,7 @@ def parse():
         for i in names:
             rec = dict()
             tmp = i.find("a")
-            if tmp == None:
+            if tmp is None:
                 break
             rec["name"] = tmp.text
             rec["link"] = tmp.get("href")
@@ -34,13 +37,14 @@ def parse():
 
         ingr = soup.find_all("div", class_=re.compile("ingr_fast"))
         for k, i in enumerate(ingr):
-            ingrs = ""
             tmp = i.find_all("span")
             ingreds = []
             for j in tmp:
                 ingreds.append(j.text)
             data[k]["ingrs"] = ingreds
-        
-
         for recipe in data:
             database.add_line(recipe)
+
+
+if __name__ == "__main__":
+    parse()
