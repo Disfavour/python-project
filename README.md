@@ -1,7 +1,7 @@
 # Телеграм бот
 Идея – телеграм-бот с разнообразным функционалом.
 
-[Wiki](https://github.com/Disfavour/python-project/wiki/)
+[Wiki](https://github.com/Disfavour/python-project/wiki/%D0%A2%D0%B5%D0%BB%D0%B5%D0%B3%D1%80%D0%B0%D0%BC-%D0%B1%D0%BE%D1%82)
 
 [Документация](https://disfavour.github.io/python-project/ "статическая документацию по проекту (sphinx), HTML-документация по API (sphinx.ext.autodoc)")
 
