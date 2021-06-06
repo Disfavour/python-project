@@ -3,6 +3,7 @@
 import psycopg2
 from psycopg2 import Error
 
+import recipes_parsing
 from recipe_conf import USER, PASSWORD, DATABASE
 
 
@@ -10,10 +11,10 @@ def create_base() -> None:
     """Создать базу данных."""
     try:
         con = psycopg2.connect(
-                user=USER,
-                password=PASSWORD,
-                host="127.0.0.1",
-                port="5432")
+            user=USER,
+            password=PASSWORD,
+            host="127.0.0.1",
+            port="5432")
         cursor = con.cursor()
         sql_cr_db = "create database postgres_db"
         cursor.execute(sql_cr_db)
@@ -36,17 +37,31 @@ def create_table() -> None:
             port="5432",
             database=DATABASE)
         cursor = connection.cursor()
-        cr_table_recipes = "CREATE TABLE recipes \
-                    (id SERIAL, \
-                    recipe JSONB NOT NULL \
-                    );"
-        cr_table_reminders = "CREATE TABLE reminders \
-                    (id SERIAL, \
-                    reminder JSONB NOT NULL \
-                    );"
-        cursor.execute(cr_table_recipes)
-        cursor.execute(cr_table_reminders)
-        connection.commit()
+        for i in ("recipes", "reminders"):
+            cursor.execute(f'select exists(SELECT * FROM information_schema.tables \
+                        WHERE lower(table_name) = lower(\'{i}\'));')
+            exist = cursor.fetchone()
+            if not exist[0]:
+                if i == "recipes":
+                    cr_table = "CREATE TABLE recipes \
+                                (id SERIAL, \
+                                recipe JSONB NOT NULL \
+                                );"
+                if i == "reminders":
+                    cr_table = "CREATE TABLE reminders \
+                                (id SERIAL, \
+                                name varchar(255), \
+                                date varchar(255), \
+                                time varchar(255), \
+                                type varchar(255) NOT NULL \
+                                );"
+                print("created", i, "table")
+                cursor.execute(cr_table)
+                connection.commit()
+            if i == "recipes":
+                cursor.execute(f'SELECT COUNT(*) AS RowCnt FROM recipes;')
+                if not cursor.fetchone()[0]:
+                    recipes_parsing.parse()
     except (Exception, Error) as error:
         print("Ошибка при работе с базой данных ", error)
     finally:
@@ -91,8 +106,6 @@ def add_line(line: dict, t_name: str) -> None:
 def get_line(table_name: str) -> None:
     """
     Извлечь запись из таблицы.
-
-    :param line: словарь, содержащий данные о рецепте
     :param table_name: название заполняемой таблицы
     """
     try:
@@ -103,11 +116,10 @@ def get_line(table_name: str) -> None:
             port="5432",
             database=DATABASE)
         cursor = connection.cursor()
-        cur_line = f"{line}".replace("\"", "*").replace("\'", "\"")
-        print(cur_line)
-        cursor.execute(f'INSERT INTO {table_name} (line) \
-                        VALUES (\'{cur_line}\');')
+        if table_name == "reminders":
+            cursor.execute(f'SELECT reminder from reminders;')
         connection.commit()
+        return cursor.fetchone()
     except (Exception, Error) as error:
         print("Ошибка при работе с базой данных ", error)
     finally:
@@ -125,10 +137,10 @@ def fetch_by_id(id: int) -> list:
     try:
         connection = psycopg2.connect(
             user=USER,
-                password=PASSWORD,
-                host="127.0.0.1",
-                port="5432",
-                database=DATABASE)
+            password=PASSWORD,
+            host="127.0.0.1",
+            port="5432",
+            database=DATABASE)
         cursor = connection.cursor()
         cursor.execute(f"SELECT * FROM recipes WHERE id = {id};")
         res = cursor.fetchall()
@@ -150,11 +162,11 @@ def fetch_by_ingreds(ingreds: list) -> list:
     """
     try:
         connection = psycopg2.connect(
-                user=USER,
-                password=PASSWORD,
-                host="127.0.0.1",
-                port="5432",
-                database=DATABASE)
+            user=USER,
+            password=PASSWORD,
+            host="127.0.0.1",
+            port="5432",
+            database=DATABASE)
         cursor = connection.cursor()
         search = ""
         for ingr in ingreds:
