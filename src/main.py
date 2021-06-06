@@ -2,14 +2,14 @@
 import aiogram
 from aiogram.utils.exceptions import BotBlocked
 
-import bot
-import stuff
-
 import afisha
+import bot
 import horoscope
 import news
-import weather
 import recipes
+import reminder
+import stuff
+import weather
 
 import locale
 import os
@@ -95,6 +95,7 @@ class REGISTRATION:
         weather.register_handlers(self.dp)
         afisha.register_handlers(self.dp)
         recipes.register_handlers(self.dp)
+        reminder.register_handlers(self.dp)
 
         # Это последнее, иначе эхо-обработчик перебьёт другие.
         self.register_base_handlers()

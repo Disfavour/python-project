@@ -10,28 +10,29 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+"""Конфиги приложения."""
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../src'))
 
+sys.path.insert(0, os.path.abspath('../../src'))
 
 # -- Project information -----------------------------------------------------
 
 project = 'Телеграм бот'
-copyright = '2021, Чернышов Михаил Михайлович, Казантаев Алексей Дмитриевич, Коваленко Анастасия Павловна, Ветрова Екатерина Александровна'
-author = 'Чернышов Михаил Михайлович, Казантаев Алексей Дмитриевич, Коваленко Анастасия Павловна, Ветрова Екатерина Александровна'
+copyright = '2021, Чернышов Михаил Михайлович, Казантаев Алексей Дмитриевич, ' \
+            'Коваленко Анастасия Павловна, Ветрова Екатерина Александровна'
+author = 'Чернышов Михаил Михайлович, Казантаев Алексей Дмитриевич, ' \
+         'Коваленко Анастасия Павловна, Ветрова Екатерина Александровна'
 
 # The full version, including alpha/beta/rc tags
 release = '0.1'
-
 
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc'
-]
+extensions = ['sphinx.ext.autodoc']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
