@@ -71,13 +71,14 @@ def add_line(line: dict, t_name: str) -> None:
             database=DATABASE)
         cursor = connection.cursor()
         cur_line = f"{line}".replace("\"", "*").replace("\'", "\"")
-        print(cur_line)
+        print("cur_line: ", cur_line)
         if t_name == "recipes":
             cursor.execute(f'INSERT INTO {t_name} (recipe) \
                             VALUES (\'{cur_line}\');')
         elif t_name == "reminders":
-            cursor.execute(f'INSERT INTO {t_name} (reminder) \
-                            VALUES (\'{cur_line}\');')
+            print(line.values())
+            cursor.execute(f'INSERT INTO {t_name} (name, date, time, type) \
+                                        VALUES (%s,%s,%s,%s);', tuple(line.values()))
         connection.commit()
     except (Exception, Error) as error:
         print("Ошибка при работе с базой данных ", error)
@@ -87,7 +88,7 @@ def add_line(line: dict, t_name: str) -> None:
             connection.close()
 
 
-def get_line(line: dict, table_name: str) -> None:
+def get_line(table_name: str) -> None:
     """
     Извлечь запись из таблицы.
 

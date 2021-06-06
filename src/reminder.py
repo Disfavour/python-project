@@ -1,7 +1,6 @@
 """Обработка напоминаний."""
 import asyncio
 
-import aiocron
 import aiogram
 import aiogram.utils.markdown as fmt
 import nest_asyncio
@@ -42,7 +41,7 @@ async def reminder_handle_callback(call: aiogram.types.CallbackQuery):
                                            "Напоминание: дд\n" +
                                            "Например:\nНапоминание: 17"),
                                   parse_mode=aiogram.types.ParseMode.HTML)
-    elif choice == "Мобильная связь":
+    elif choice == "Мобильная Связь":
         await call.message.answer(fmt.text("Введите название вашего мобильного оператора" +
                                            " и дату оплаты мобильной связи в формате:\n" +
                                            "Напоминание: Оператор дд\n " +
@@ -80,7 +79,9 @@ async def reminder_handle_table(message: aiogram.types.Message):
     msg = message.text.split()
     print(msg)
     data = dict()
-    if choice in ("День Рождения", "Мобильная связь", "Подписки"):
+    for i in ("name", "date", "time", "type"):
+        data[i] = ''
+    if choice in ("День Рождения", "Мобильная Связь", "Подписки"):
         data["name"] = ' '.join(msg[1:-1])
         data["date"] = msg[-1]
     elif choice == "ЖКХ":
@@ -90,20 +91,25 @@ async def reminder_handle_table(message: aiogram.types.Message):
         data["date"] = msg[-2]
         data["time"] = msg[-1]
     elif choice == "Приём Лекарств":
-        data["name"] = ' '.join(msg[1:-2])
+        data["name"] = ' '.join(msg[1:-1])
         data["time"] = msg[-1]
     data["type"] = choice
     database.add_line(data, "reminders")
-    date = data["date"].split(".") if data["date"] else ["*"] * 3
-    time = data["time"].split(":") if data["time"] else ["*"] * 2
+    await message.answer("Напоминание добавлено", parse_mode=aiogram.types.ParseMode.HTML)
+    date = data["date"] if data["date"] else ["*"] * 3
+    time = data["time"] if data["time"] else ["*"] * 2
+    print(date, time)
 
-    @aiocron.crontab('{} {} {} {} *'.format(time[1], time[0], date[0], date[1]))
-    async def at_time():
-        try:
-            await message.answer(choice + ", " + ' '.join(message.text.split()[1:-1]),
-                                 parse_mode=aiogram.types.ParseMode.HTML)
-        except Exception:
-            pass
+    # @aiocron.crontab('1 * * * *')
+    # async def at_time():
+    #     date_time = datetime.datetime.now()
+    #     try:
+    #         res = database.get_line("reminders")
+    #         print(res)
+    #         await message.answer(choice + ", " + ' '.join(message.text.split()[1:-1]),
+    #                              parse_mode=aiogram.types.ParseMode.HTML)
+    #     except Exception:
+    #         pass
 
     asyncio.get_event_loop().run_forever()
 
@@ -116,5 +122,6 @@ def register_handlers(dp: aiogram.Dispatcher) -> None:
     """
     dp.register_message_handler(reminder_handle, regexp=r"^Напоминания")
     dp.register_callback_query_handler(reminder_handle_callback, text=CHOICES)
-    dp.register_message_handler(reminder_handle_table, regexp=r"[a-zA-Zа-яА-Я ]+ ((\d{2}\.\d{2}(\.\d{2,4})?"
-                                                              r"( \d{2}:\d{2})?|(\d{2}(:\d{2})?)))|\d+|[а-яА-Я]+")
+    dp.register_message_handler(reminder_handle_table, regexp=r"Напоминание: ([a-zA-Zа-яА-Я ]+ ((\d{2}\.\d{2}"
+                                                              r"(\.\d{2,4})?( \d{2}:\d{2})?|"
+                                                              r"(\d{2}(:\d{2})?)))|\d+|[а-яА-Я]+)")
