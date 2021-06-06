@@ -11,6 +11,11 @@ import news
 import weather
 import recipes
 
+import locale
+import os
+import gettext
+
+gettext.install("telbot", os.path.dirname(__file__))
 
 async def get_help(message: aiogram.types.Message):
     """
@@ -20,7 +25,9 @@ async def get_help(message: aiogram.types.Message):
     """
     keyboard = aiogram.types.InlineKeyboardMarkup()
     keyboard.add(aiogram.types.InlineKeyboardButton(text="Проект", url="https://github.com/Disfavour/python-project"))
-    await message.reply("Документацию можно найти здесь", reply_markup=keyboard)
+    await message.reply("Привет! Я бот-помощник, совмещаю в себе много полезных функций. " + 
+            "Чтобы начать, введите /start. " +
+            "Документацию можно найти здесь:", reply_markup=keyboard)
 
 
 async def cmd_start(message: aiogram.types.Message):
@@ -32,7 +39,8 @@ async def cmd_start(message: aiogram.types.Message):
     keyboard = aiogram.types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     buttons = stuff.base_options
     keyboard.add(*buttons)
-    await message.reply("Выберите функцию", reply_markup=keyboard)
+    print(locale.getlocale())
+    await message.reply(_("Выберите функцию"), reply_markup=keyboard)
 
 
 async def cmd_dice(message: aiogram.types.Message):

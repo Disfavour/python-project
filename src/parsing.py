@@ -112,7 +112,7 @@ class WEATHER(PARSER):
         """Инициализировать ссылку и данные."""
         self.url = "https://www.gismeteo.ru"
         self.main_data = {
-            "Темпуратура": None,
+            "Температура": None,
             "Описание": None,
         }
         self.extra_data = {}
@@ -133,7 +133,7 @@ class WEATHER(PARSER):
     def get_data(self) -> None:
         """Записать информацию о погоде в объект класса."""
         base_info, extra_info = self.parse()
-        self.main_data["Темпуратура"] = base_info[0]
+        self.main_data["Температура"] = base_info[0]
         self.main_data["Описание"] = base_info[1]
         for i in range(6):
             self.extra_data[extra_info[i][0]] = extra_info[i][1]
