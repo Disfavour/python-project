@@ -2,6 +2,7 @@
 
 import psycopg2
 from psycopg2 import Error
+
 from recipe_conf import USER, PASSWORD, DATABASE
 
 
@@ -29,17 +30,22 @@ def create_table() -> None:
     """Создать таблицу в базе данных."""
     try:
         connection = psycopg2.connect(
-                user=USER,
-                password=PASSWORD,
-                host="127.0.0.1",
-                port="5432",
-                database=DATABASE)
+            user=USER,
+            password=PASSWORD,
+            host="127.0.0.1",
+            port="5432",
+            database=DATABASE)
         cursor = connection.cursor()
-        cr_table = "CREATE TABLE recipes \
+        cr_table_recipes = "CREATE TABLE recipes \
                     (id SERIAL, \
                     recipe JSONB NOT NULL \
                     );"
-        cursor.execute(cr_table)
+        cr_table_reminders = "CREATE TABLE reminders \
+                    (id SERIAL, \
+                    reminder JSONB NOT NULL \
+                    );"
+        cursor.execute(cr_table_recipes)
+        cursor.execute(cr_table_reminders)
         connection.commit()
     except (Exception, Error) as error:
         print("Ошибка при работе с базой данных ", error)
@@ -49,24 +55,57 @@ def create_table() -> None:
             connection.close()
 
 
-def add_line(recipe: dict) -> None:
+def add_line(line: dict, t_name: str) -> None:
     """
     Добавить запись в таблицу.
 
-    :param recipe: словарь, содержащий данные о рецепте
+    :param line: словарь, содержащий добавляемые данные
+    :param t_name: название заполняемой таблицы
     """
     try:
         connection = psycopg2.connect(
-                user=USER,
-                password=PASSWORD,
-                host="127.0.0.1",
-                port="5432",
-                database=DATABASE)
+            user=USER,
+            password=PASSWORD,
+            host="127.0.0.1",
+            port="5432",
+            database=DATABASE)
         cursor = connection.cursor()
-        cur_recipe = f"{recipe}".replace("\"", "*").replace("\'", "\"")
-        print(cur_recipe)
-        cursor.execute(f'INSERT INTO recipes (recipe) \
-                        VALUES (\'{cur_recipe}\');')
+        cur_line = f"{line}".replace("\"", "*").replace("\'", "\"")
+        print(cur_line)
+        if t_name == "recipes":
+            cursor.execute(f'INSERT INTO {t_name} (recipe) \
+                            VALUES (\'{cur_line}\');')
+        elif t_name == "reminders":
+            cursor.execute(f'INSERT INTO {t_name} (reminder) \
+                            VALUES (\'{cur_line}\');')
+        connection.commit()
+    except (Exception, Error) as error:
+        print("Ошибка при работе с базой данных ", error)
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
+
+
+def get_line(line: dict, table_name: str) -> None:
+    """
+    Извлечь запись из таблицы.
+
+    :param line: словарь, содержащий данные о рецепте
+    :param table_name: название заполняемой таблицы
+    """
+    try:
+        connection = psycopg2.connect(
+            user=USER,
+            password=PASSWORD,
+            host="127.0.0.1",
+            port="5432",
+            database=DATABASE)
+        cursor = connection.cursor()
+        cur_line = f"{line}".replace("\"", "*").replace("\'", "\"")
+        print(cur_line)
+        cursor.execute(f'INSERT INTO {table_name} (line) \
+                        VALUES (\'{cur_line}\');')
         connection.commit()
     except (Exception, Error) as error:
         print("Ошибка при работе с базой данных ", error)
@@ -84,7 +123,7 @@ def fetch_by_id(id: int) -> list:
     """
     try:
         connection = psycopg2.connect(
-                user=USER,
+            user=USER,
                 password=PASSWORD,
                 host="127.0.0.1",
                 port="5432",

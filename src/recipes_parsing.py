@@ -1,10 +1,11 @@
 """Парсинг сайта с рецептами."""
 
-from bs4 import BeautifulSoup
-import requests
 import re
-import database
 
+import requests
+from bs4 import BeautifulSoup
+
+import database
 
 URL = "https://www.povarenok.ru/recipes/"
 HEADERS = {
@@ -43,7 +44,7 @@ def parse() -> None:
                 ingreds.append(j.text)
             data[k]["ingrs"] = ingreds
         for recipe in data:
-            database.add_line(recipe)
+            database.add_line(recipe, "recipes")
 
 
 if __name__ == "__main__":
