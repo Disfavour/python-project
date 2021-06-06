@@ -59,7 +59,7 @@ def create_table() -> None:
                 cursor.execute(cr_table)
                 connection.commit()
             if i == "recipes":
-                cursor.execute(f'SELECT COUNT(*) AS RowCnt FROM recipes;')
+                cursor.execute('SELECT COUNT(*) AS RowCnt FROM recipes;')
                 if not cursor.fetchone()[0]:
                     recipes_parsing.parse()
     except (Exception, Error) as error:
@@ -106,6 +106,7 @@ def add_line(line: dict, t_name: str) -> None:
 def get_line(table_name: str) -> None:
     """
     Извлечь запись из таблицы.
+
     :param table_name: название заполняемой таблицы
     """
     try:
@@ -117,7 +118,7 @@ def get_line(table_name: str) -> None:
             database=DATABASE)
         cursor = connection.cursor()
         if table_name == "reminders":
-            cursor.execute(f'SELECT reminder from reminders;')
+            cursor.execute('SELECT reminder from reminders;')
         connection.commit()
         return cursor.fetchone()
     except (Exception, Error) as error:
