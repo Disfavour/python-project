@@ -1,6 +1,10 @@
 """Обработка погоды."""
 import aiogram
 import parsing
+import os
+import gettext
+
+gettext.install("telbot", os.path.dirname(__file__))
 
 
 weather_obj = parsing.WEATHER()
@@ -22,7 +26,7 @@ def register_handlers(dp: aiogram.Dispatcher) -> None:
 
     :param dp: диспетчер
     """
-    dp.register_message_handler(weather_handle, regexp=r"^Погода$")
+    dp.register_message_handler(weather_handle, regexp=_(r"^Погода$"))
 
 
 if __name__ == "__main__":

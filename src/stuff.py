@@ -1,10 +1,14 @@
 """Полезные данные и функции."""
 import aiogram
+import os
+import gettext
+
+gettext.install("telbot", os.path.dirname(__file__))
 
 
-base_options = ["Гороскоп", "Новости", "Погода", "Афиша",
-                "Напоминания", "Счётчик расходов/доходов",
-                "Списки покупок", "Кулинарные рецепты"]
+base_options = [_("Гороскоп"), _("Новости"), _("Погода"), _("Афиша"),
+                _("Напоминания"), _("Счётчик расходов/доходов"),
+                _("Списки покупок"), _("Кулинарные рецепты")]
 
 
 def get_inline_keyboard_from_list(items: list) -> aiogram.types.InlineKeyboardMarkup:
@@ -28,7 +32,7 @@ def get_more_inline_keyboard(callback_data: str) -> aiogram.types.InlineKeyboard
     :param callback_data: колбек для кнопки
     """
     keyboard = aiogram.types.InlineKeyboardMarkup()
-    keyboard.add(aiogram.types.InlineKeyboardButton(text="Ещё", callback_data=callback_data))
+    keyboard.add(aiogram.types.InlineKeyboardButton(text=_("Ещё"), callback_data=callback_data))
     return keyboard
 
 
@@ -39,7 +43,7 @@ def get_another_inline_keyboard(callback_data: str) -> aiogram.types.InlineKeybo
     :param callback_data: колбек для кнопки
     """
     keyboard = aiogram.types.InlineKeyboardMarkup()
-    keyboard.add(aiogram.types.InlineKeyboardButton(text="Следующий", callback_data=callback_data))
+    keyboard.add(aiogram.types.InlineKeyboardButton(text=_("Следующий"), callback_data=callback_data))
     return keyboard
 
 

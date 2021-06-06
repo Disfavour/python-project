@@ -2,6 +2,10 @@
 import aiogram
 import stuff
 import parsing
+import os
+import gettext
+
+gettext.install("telbot", os.path.dirname(__file__))
 
 
 news_obj = parsing.NEWS()
@@ -55,7 +59,7 @@ def register_handlers(dp: aiogram.Dispatcher) -> None:
 
     :param dp: диспетчер
     """
-    dp.register_message_handler(news_handle, regexp=r"^Новости$")
+    dp.register_message_handler(news_handle, regexp=_(r"^Новости$"))
     dp.register_callback_query_handler(news_handle_callback, text=ID_NEWS)
 
 

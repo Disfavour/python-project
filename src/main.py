@@ -24,10 +24,10 @@ async def get_help(message: aiogram.types.Message):
     :param message: сообщение
     """
     keyboard = aiogram.types.InlineKeyboardMarkup()
-    keyboard.add(aiogram.types.InlineKeyboardButton(text="Проект", url="https://github.com/Disfavour/python-project"))
-    await message.reply("Привет! Я бот-помощник, совмещаю в себе много полезных функций. " + 
-            "Чтобы начать, введите /start. " +
-            "Документацию можно найти здесь:", reply_markup=keyboard)
+    keyboard.add(aiogram.types.InlineKeyboardButton(text=_("Проект"), url="https://github.com/Disfavour/python-project"))
+    await message.reply(_("Привет! Я бот-помощник, совмещаю в себе много полезных функций. ") + 
+            _("Чтобы начать, введите /start. ") +
+            _("Документацию можно найти здесь:"), reply_markup=keyboard)
 
 
 async def cmd_start(message: aiogram.types.Message):
@@ -39,7 +39,6 @@ async def cmd_start(message: aiogram.types.Message):
     keyboard = aiogram.types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     buttons = stuff.base_options
     keyboard.add(*buttons)
-    print(locale.getlocale())
     await message.reply(_("Выберите функцию"), reply_markup=keyboard)
 
 
@@ -58,7 +57,7 @@ async def echo(message: aiogram.types.Message):
 
     :param message: сообщение
     """
-    await message.reply("Не распознано '" + message.text + "'")
+    await message.reply(_("Не распознано '") + message.text + "'")
 
 
 async def error_bot_blocked(update: aiogram.types.Update, exception: BotBlocked):
