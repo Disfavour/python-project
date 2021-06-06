@@ -1,0 +1,4 @@
+afisha
+===================
+.. automodule:: afisha
+   :members:

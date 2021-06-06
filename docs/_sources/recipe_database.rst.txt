@@ -1,0 +1,4 @@
+recipe_database
+===================
+.. automodule:: recipe_database
+   :members:

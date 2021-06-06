@@ -1,0 +1,4 @@
+reminder
+===================
+.. automodule:: reminder
+   :members:

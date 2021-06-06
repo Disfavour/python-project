@@ -17,6 +17,7 @@ import gettext
 
 gettext.install("telbot", os.path.dirname(__file__))
 
+
 async def get_help(message: aiogram.types.Message):
     """
     Показать помощь.
@@ -24,10 +25,12 @@ async def get_help(message: aiogram.types.Message):
     :param message: сообщение
     """
     keyboard = aiogram.types.InlineKeyboardMarkup()
-    keyboard.add(aiogram.types.InlineKeyboardButton(text=_("Проект"), url="https://github.com/Disfavour/python-project"))
-    await message.reply(_("Привет! Я бот-помощник, совмещаю в себе много полезных функций. ") + 
-            _("Чтобы начать, введите /start. ") +
-            _("Документацию можно найти здесь:"), reply_markup=keyboard)
+    keyboard.add(aiogram.types.InlineKeyboardButton(
+        text=_("Проект"), url="https://github.com/Disfavour/python-project"))
+    await message.reply(
+        _("Привет! Я бот-помощник, совмещаю в себе много полезных функций. ") +
+        _("Чтобы начать, введите /start. ") +
+        _("Документацию можно найти здесь:"), reply_markup=keyboard)
 
 
 async def cmd_start(message: aiogram.types.Message):

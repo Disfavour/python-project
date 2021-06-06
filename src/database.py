@@ -1,11 +1,13 @@
 """Функции для работы с базой данных."""
 
+import gettext
+import os
+
 import psycopg2
 from psycopg2 import Error
 
 import recipes_parsing
-from recipe_conf import USER, PASSWORD, DATABASE
-import os, gettext
+from recipe_database import USER, PASSWORD, DATABASE
 
 gettext.install("telbot", os.path.dirname(__file__))
 

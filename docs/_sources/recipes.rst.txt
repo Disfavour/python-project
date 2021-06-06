@@ -1,0 +1,4 @@
+recipes
+===================
+.. automodule:: recipes
+   :members:

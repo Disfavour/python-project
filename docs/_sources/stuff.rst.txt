@@ -1,0 +1,4 @@
+stuff
+===================
+.. automodule:: stuff
+   :members:
