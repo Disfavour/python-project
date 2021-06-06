@@ -28,11 +28,11 @@ def form_answer(recipe: tuple) -> str:
     for num, item in enumerate(recipe[1]["ingrs"]):
         ingr += f"{num+1}) {item}\n"
     return fmt.text(
-                fmt.text(fmt.hbold(recipe[1]["name"])),
-                fmt.text(_("Ингредиенты:\n"), ingr),
-                fmt.hlink(recipe[1]["name"], recipe[1]["link"]),
-                sep="\n"
-            )
+        fmt.text(fmt.hbold(recipe[1]["name"])),
+        fmt.text(_("Ингредиенты:\n"), ingr),
+        fmt.hlink(recipe[1]["name"], recipe[1]["link"]),
+        sep="\n"
+    )
 
 
 async def recipes_handler(message: aiogram.types.Message):
@@ -42,8 +42,8 @@ async def recipes_handler(message: aiogram.types.Message):
     :param message: сообщение для бота
     """
     await message.answer(
-            fmt.text(_("Нужен рецепт с определенными ингредиентами или любой?")),
-            reply_markup=get_inline_keyboard_from_list(CHOICE))
+        fmt.text(_("Нужен рецепт с определенными ингредиентами или любой?")),
+        reply_markup=get_inline_keyboard_from_list(CHOICE))
 
 
 async def recipes_handle_callback(call: aiogram.types.CallbackQuery):
@@ -61,13 +61,13 @@ async def recipes_handle_callback(call: aiogram.types.CallbackQuery):
             reply_markup=get_more_inline_keyboard(choice))
     elif choice == _("По ингредиентам"):
         await call.message.answer(
-                fmt.text(
-                    _("Введите ингредиенты с большой буквы через запятую, ") +
-                    _("начиная со слова 'Ингредиенты:'\n Пример: \n") +
-                    _("'Ингредиенты:  Вишня, Корица, Сахар'\n") +
-                    _("По возможности уточняйте название ингредиента: ") +
-                    _("вместо 'Перец' введите 'Перец черный' и т.п.")),
-                parse_mode=aiogram.types.ParseMode.HTML)
+            fmt.text(
+                _("Введите ингредиенты с большой буквы через запятую, ") +
+                _("начиная со слова 'Ингредиенты:'\n Пример: \n") +
+                _("'Ингредиенты:  Вишня, Корица, Сахар'\n") +
+                _("По возможности уточняйте название ингредиента: ") +
+                _("вместо 'Перец' введите 'Перец черный' и т.п.")),
+            parse_mode=aiogram.types.ParseMode.HTML)
 
 
 async def recipes_handle_ingreds(message: aiogram.types.Message):
@@ -90,13 +90,13 @@ async def recipes_handle_ingreds(message: aiogram.types.Message):
     CNT = 0
     if len(RECIPES_LIST) != 0:
         await message.answer(
-                form_answer(RECIPES_LIST[CNT]),
-                parse_mode=aiogram.types.ParseMode.HTML,
-                reply_markup=get_another_inline_keyboard(NEXT))
+            form_answer(RECIPES_LIST[CNT]),
+            parse_mode=aiogram.types.ParseMode.HTML,
+            reply_markup=get_another_inline_keyboard(NEXT))
     else:
         await message.answer(
-                    fmt.text(_("Нет рецептов с таким набором ингредиентов.")),
-                    parse_mode=aiogram.types.ParseMode.HTML)
+            fmt.text(_("Нет рецептов с таким набором ингредиентов.")),
+            parse_mode=aiogram.types.ParseMode.HTML)
 
 
 async def recipes_handle_ingreds_callback(call: aiogram.types.CallbackQuery):
@@ -109,13 +109,13 @@ async def recipes_handle_ingreds_callback(call: aiogram.types.CallbackQuery):
     CNT += 1
     if CNT < len(RECIPES_LIST):
         await call.message.answer(
-                    form_answer(RECIPES_LIST[CNT]),
-                    parse_mode=aiogram.types.ParseMode.HTML,
-                    reply_markup=get_another_inline_keyboard(call.data))
+            form_answer(RECIPES_LIST[CNT]),
+            parse_mode=aiogram.types.ParseMode.HTML,
+            reply_markup=get_another_inline_keyboard(call.data))
     else:
         await call.message.answer(
-                        fmt.text(_("Рецепты с такими ингредиентами закончились.")),
-                        parse_mode=aiogram.types.ParseMode.HTML)
+            fmt.text(_("Рецепты с такими ингредиентами закончились.")),
+            parse_mode=aiogram.types.ParseMode.HTML)
 
 
 def register_handlers(dp: aiogram.Dispatcher) -> None:
