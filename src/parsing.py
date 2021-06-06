@@ -2,6 +2,10 @@
 from bs4 import BeautifulSoup
 import requests
 import aiogram.utils.markdown as fmt
+import os
+import gettext
+
+gettext.install("telbot", os.path.dirname(__file__))
 
 
 class PARSER:
@@ -112,8 +116,8 @@ class WEATHER(PARSER):
         """Инициализировать ссылку и данные."""
         self.url = "https://www.gismeteo.ru"
         self.main_data = {
-            "Темпуратура": None,
-            "Описание": None,
+            _("Температура"): None,
+            _("Описание"): None,
         }
         self.extra_data = {}
 
@@ -133,8 +137,8 @@ class WEATHER(PARSER):
     def get_data(self) -> None:
         """Записать информацию о погоде в объект класса."""
         base_info, extra_info = self.parse()
-        self.main_data["Темпуратура"] = base_info[0]
-        self.main_data["Описание"] = base_info[1]
+        self.main_data[_("Температура")] = base_info[0]
+        self.main_data[_("Описание")] = base_info[1]
         for i in range(6):
             self.extra_data[extra_info[i][0]] = extra_info[i][1]
 
@@ -208,7 +212,7 @@ class AFISHA(PARSER):
     def __init__(self):
         """Инициализировать ссылку и данные."""
         self.options = [
-            "Кино", "Театр", "Концерт"
+            _("Кино"), _("Театр"), _("Концерт")
         ]
         self.url = "https://www.afisha.ru"
         self.max_info_count = 1

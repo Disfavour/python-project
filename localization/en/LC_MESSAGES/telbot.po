@@ -1,0 +1,182 @@
+# English translations for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-06-06 14:02+0300\n"
+"PO-Revision-Date: 2021-06-06 12:26+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.0\n"
+
+#: src/afisha.py:22
+msgid "Что именно?"
+msgstr "What exactly?"
+
+#: src/afisha.py:52
+msgid "^Афиша$"
+msgstr "^Cultural events$"
+
+#: src/database.py:10
+msgid "Ошибка при работе с базой данных "
+msgstr "Error occured while working with database "
+
+#: src/horoscope.py:21
+msgid "Выберите ваш знак зодиака"
+msgstr "Choose your Zodiac sign"
+
+#: src/horoscope.py:42
+msgid "^Гороскоп$"
+msgstr "^Horoscope$"
+
+#: src/main.py:27
+msgid "Проект"
+msgstr "Project"
+
+#: src/main.py:28
+msgid "Привет! Я бот-помощник, совмещаю в себе много полезных функций. "
+msgstr "Hello! I am bot-assistant, I provide many functions. "
+
+#: src/main.py:29
+msgid "Чтобы начать, введите /start. "
+msgstr "To start work enter /start. "
+
+#: src/main.py:30
+msgid "Документацию можно найти здесь:"
+msgstr "You can find documentation here:"
+
+#: src/main.py:42
+msgid "Выберите функцию"
+msgstr "Choose function."
+
+#: src/main.py:60
+msgid "Не распознано '"
+msgstr "Can't recognize '"
+
+#: src/news.py:62
+msgid "^Новости$"
+msgstr "^News$"
+
+#: src/parsing.py:119 src/parsing.py:140
+msgid "Температура"
+msgstr "Temperature"
+
+#: src/parsing.py:120 src/parsing.py:141
+msgid "Описание"
+msgstr "Description"
+
+#: src/parsing.py:215
+msgid "Кино"
+msgstr "Cinema"
+
+#: src/parsing.py:215
+msgid "Театр"
+msgstr "Theatre"
+
+#: src/parsing.py:215
+msgid "Концерт"
+msgstr "Concerts"
+
+#: src/recipes.py:15 src/recipes.py:56
+msgid "Любой"
+msgstr "Any"
+
+#: src/recipes.py:15 src/recipes.py:62
+msgid "По ингредиентам"
+msgstr "By ingredients"
+
+#: src/recipes.py:16 src/stuff.py:46
+msgid "Следующий"
+msgstr "Next"
+
+#: src/recipes.py:32
+msgid "Ингредиенты:\n"
+msgstr "Ingredients:\n"
+
+#: src/recipes.py:45
+msgid "Нужен рецепт с определенными ингредиентами или любой?"
+msgstr "Do you need a recipe with certain ingredients or just any recipe?"
+
+#: src/recipes.py:65
+msgid "Введите ингредиенты с большой буквы через запятую, "
+msgstr "Enter ingredients in Russian, "
+
+#: src/recipes.py:66
+msgid ""
+"начиная со слова 'Ингредиенты:'\n"
+" Пример: \n"
+msgstr "starting with the words 'Ингредиенты:'\n"
+
+#: src/recipes.py:67
+msgid "'Ингредиенты:  Вишня, Корица, Сахар'\n"
+msgstr "Example: 'Ингредиенты:  Вишня, Корица, Сахар'\n"
+
+#: src/recipes.py:68
+msgid "По возможности уточняйте название ингредиента: "
+msgstr "Enter ingredients with details: "
+
+#: src/recipes.py:69
+msgid "вместо 'Перец' введите 'Перец черный' и т.п."
+msgstr "instead of 'Перец' enter 'Перец черный'."
+
+#: src/recipes.py:98
+msgid "Нет рецептов с таким набором ингредиентов."
+msgstr "No recipes with such ingredients."
+
+#: src/recipes.py:117
+msgid "Рецепты с такими ингредиентами закончились."
+msgstr "Recipes with such ingredients are over."
+
+#: src/recipes.py:127
+msgid "^Кулинарные рецепты$"
+msgstr "^Recipes$"
+
+#: src/stuff.py:9
+msgid "Гороскоп"
+msgstr "Horoscope"
+
+#: src/stuff.py:9
+msgid "Новости"
+msgstr "News"
+
+#: src/stuff.py:9
+msgid "Погода"
+msgstr "Weather"
+
+#: src/stuff.py:9
+msgid "Афиша"
+msgstr "Cultural events"
+
+#: src/stuff.py:10
+msgid "Напоминания"
+msgstr "Reminders"
+
+#: src/stuff.py:10
+msgid "Счётчик расходов/доходов"
+msgstr "Income and expense counter"
+
+#: src/stuff.py:11
+msgid "Списки покупок"
+msgstr "Shopping list"
+
+#: src/stuff.py:11
+msgid "Кулинарные рецепты"
+msgstr "Recipes"
+
+#: src/stuff.py:35
+msgid "Ещё"
+msgstr "More"
+
+#: src/weather.py:29
+msgid "^Погода$"
+msgstr "^Weather$"
+

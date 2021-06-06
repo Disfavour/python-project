@@ -3,6 +3,11 @@
 import psycopg2
 from psycopg2 import Error
 from recipe_conf import USER, PASSWORD, DATABASE
+import os, gettext
+
+gettext.install("telbot", os.path.dirname(__file__))
+
+ERROR_MESSAGE = _("Ошибка при работе с базой данных ")
 
 
 def create_base() -> None:
@@ -18,7 +23,7 @@ def create_base() -> None:
         cursor.execute(sql_cr_db)
         con.commit()
     except (Exception, Error) as error:
-        print("Ошибка при работе с базой данных ", error)
+        print(ERROR_MESSAGE, error)
     finally:
         if con:
             cursor.close()
@@ -42,7 +47,7 @@ def create_table() -> None:
         cursor.execute(cr_table)
         connection.commit()
     except (Exception, Error) as error:
-        print("Ошибка при работе с базой данных ", error)
+        print(ERROR_MESSAGE, error)
     finally:
         if connection:
             cursor.close()
@@ -69,7 +74,7 @@ def add_line(recipe: dict) -> None:
                         VALUES (\'{cur_recipe}\');')
         connection.commit()
     except (Exception, Error) as error:
-        print("Ошибка при работе с базой данных ", error)
+        print(ERROR_MESSAGE, error)
     finally:
         if connection:
             cursor.close()
@@ -93,7 +98,7 @@ def fetch_by_id(id: int) -> list:
         cursor.execute(f"SELECT * FROM recipes WHERE id = {id};")
         res = cursor.fetchall()
     except (Exception, Error) as error:
-        print("Ошибка при работе с базой данных ", error)
+        print(ERROR_MESSAGE, error)
     finally:
         if connection:
             cursor.close()
@@ -124,7 +129,7 @@ def fetch_by_ingreds(ingreds: list) -> list:
         cursor.execute(f"SELECT * FROM recipes WHERE {search};")
         res = cursor.fetchall()
     except (Exception, Error) as error:
-        print("Ошибка при работе с базой данных ", error)
+        print(ERROR_MESSAGE, error)
     finally:
         if connection:
             cursor.close()

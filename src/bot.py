@@ -1,10 +1,11 @@
 """Объект бота."""
 import aiogram
 import configparser
+import os
 
 
 config = configparser.ConfigParser()
-config.read('bot_info.ini')
+config.read(os.path.dirname(__file__) + "/bot_info.ini")
 config.sections()
 TOKEN = config["BOT"]["token"]
 
