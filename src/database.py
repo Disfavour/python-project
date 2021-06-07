@@ -1,7 +1,8 @@
 """Функции для работы с базой данных."""
+import datetime
 
 import psycopg2
-from psycopg2 import Error
+from psycopg2 import Error, extras
 
 import recipes_parsing
 from recipe_conf import USER, PASSWORD, DATABASE
@@ -103,11 +104,11 @@ def add_line(line: dict, t_name: str) -> None:
             connection.close()
 
 
-def get_line(table_name: str) -> None:
+def get_line_notif(line_data: str):
     """
     Извлечь запись из таблицы.
 
-    :param table_name: название заполняемой таблицы
+    :param line_data: запрашиваемая строка
     """
     try:
         connection = psycopg2.connect(
@@ -116,17 +117,39 @@ def get_line(table_name: str) -> None:
             host="127.0.0.1",
             port="5432",
             database=DATABASE)
-        cursor = connection.cursor()
-        if table_name == "reminders":
-            cursor.execute('SELECT reminder from reminders;')
+        cursor = connection.cursor(cursor_factory=extras.DictCursor)
+        date_time = datetime.datetime.now()
+        if line_data in ("Мобильная Связь", "Подписки"):
+            cursor.execute(f'SELECT * from reminders WHERE (date = \'{date_time.date}\' ' +
+                           f'or date = \'{date_time.day}\') and type=\'{line_data}\';')
+        elif line_data == "ЖКХ":
+            cursor.execute(f'SELECT * from reminders WHERE ' +
+                           f'date = \'{date_time.day}\' and type=\'{line_data}\';')
+        elif line_data == "Планер":
+            hour, minute = 0, 0
+            if date_time.hour < 10:
+                hour = '0'+str(date_time.hour)
+            if date_time.minute < 10:
+                minute = '0'+str(date_time.minute)
+            cursor.execute(f'SELECT * from reminders WHERE date = \'{date_time.date}\' ' +
+                           f'and time = \'{hour}:{minute}\' and type=\'{line_data}\';')
+        elif line_data == "День Рождения":
+            cursor.execute(f'SELECT * from reminders WHERE ' +
+                           f'date = \'{date_time.date}\' and type=\'{line_data}\';')
+        elif line_data == "Приём Лекарств":
+            hour = '0'+str(date_time.hour) if date_time.hour < 10 else date_time.hour
+            minute = '0'+str(date_time.minute) if date_time.minute < 10 else date_time.minute
+            cursor.execute(f'SELECT * from reminders WHERE ' +
+                           f'time = \'{hour}:{minute}\' and type=\'{line_data}\';')
         connection.commit()
-        return cursor.fetchone()
     except (Exception, Error) as error:
         print("Ошибка при работе с базой данных ", error)
     finally:
+        res = cursor.fetchone()
         if connection:
             cursor.close()
             connection.close()
+        return res
 
 
 def fetch_by_id(id: int) -> list:
