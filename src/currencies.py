@@ -36,7 +36,7 @@ class Exchange(Currency):
         lst = [cur1, cur2]
         for i, j in enumerate(lst):
             if j != "RUB":
-                lst[i] = self.bank_link[j]['Value']  # ?
+                lst[i] = self.bank_link[j]['Value']
             else:
                 lst[i] = 1
         return lst[1] * self.amount / lst[0]
