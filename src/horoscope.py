@@ -1,9 +1,10 @@
 """Обработка гороскопа."""
 import aiogram
-import stuff
-import parsing
 import os
 import gettext
+
+from . import stuff
+from . import parsing
 
 gettext.install("telbot", os.path.dirname(__file__))
 
