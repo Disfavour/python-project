@@ -7,8 +7,8 @@ import os
 import psycopg2
 from psycopg2 import Error, extras
 
-import recipes_parsing
-from read_db_conf import USER, PASSWORD, DATABASE
+from . import recipes_parsing
+from .read_db_conf import USER, PASSWORD, DATABASE
 
 gettext.install("telbot", os.path.dirname(__file__))
 

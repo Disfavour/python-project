@@ -2,15 +2,15 @@
 import aiogram
 from aiogram.utils.exceptions import BotBlocked
 
-import afisha
-import bot
-import currencies
-import horoscope
-import news
-import recipes
-import reminder
-import stuff
-import weather
+from . import afisha
+from . import bot
+from . import currencies
+from . import horoscope
+from . import news
+from . import recipes
+from . import reminder
+from . import stuff
+from . import weather
 
 import locale
 import os

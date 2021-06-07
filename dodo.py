@@ -1,7 +1,7 @@
 import glob
 from doit.tools import create_folder
 
-DOIT_CONFIG = {'default_tasks': ['all']}
+# DOIT_CONFIG = {'default_tasks': ['all']}
 
 
 def task_clean_docs():
@@ -18,4 +18,3 @@ def task_docs():
         'task_dep': ['clean_docs'],
     }
 
-# afisha.rst bot.rst database.rst horoscope.rst main.rst news.rst parsing.rst read_db_conf.rst recipes_parsing.rst recipes.rst reminder.rst stuff.rst weather.rst
