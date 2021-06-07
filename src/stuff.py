@@ -4,7 +4,7 @@ import aiogram
 
 base_options = ["Гороскоп", "Новости", "Погода", "Афиша",
                 "Напоминания", "Счётчик расходов/доходов",
-                "Списки покупок", "Кулинарные рецепты"]
+                "Списки покупок", "Кулинарные рецепты", "Валюты"]
 
 
 def get_inline_keyboard_from_list(items: list) -> aiogram.types.InlineKeyboardMarkup:

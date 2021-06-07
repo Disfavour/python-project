@@ -4,6 +4,7 @@ from aiogram.utils.exceptions import BotBlocked
 
 import afisha
 import bot
+import currencies
 import horoscope
 import news
 import recipes
@@ -89,6 +90,7 @@ class REGISTRATION:
         afisha.register_handlers(self.dp)
         recipes.register_handlers(self.dp)
         reminder.register_handlers(self.dp)
+        currencies.register_handlers(self.dp)
 
         # Это последнее, иначе эхо-обработчик перебьёт другие.
         self.register_base_handlers()
