@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-06-06 14:02+0300\n"
+"POT-Creation-Date: 2021-06-07 14:03+0300\n"
 "PO-Revision-Date: 2021-06-06 12:26+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -26,7 +26,7 @@ msgstr "What exactly?"
 msgid "^Афиша$"
 msgstr "^Cultural events$"
 
-#: src/database.py:10
+#: src/database.py:15
 msgid "Ошибка при работе с базой данных "
 msgstr "Error occured while working with database "
 
@@ -38,27 +38,27 @@ msgstr "Choose your Zodiac sign"
 msgid "^Гороскоп$"
 msgstr "^Horoscope$"
 
-#: src/main.py:27
+#: src/main.py:29
 msgid "Проект"
 msgstr "Project"
 
-#: src/main.py:28
+#: src/main.py:31
 msgid "Привет! Я бот-помощник, совмещаю в себе много полезных функций. "
 msgstr "Hello! I am bot-assistant, I provide many functions. "
 
-#: src/main.py:29
+#: src/main.py:32
 msgid "Чтобы начать, введите /start. "
 msgstr "To start work enter /start. "
 
-#: src/main.py:30
+#: src/main.py:33
 msgid "Документацию можно найти здесь:"
 msgstr "You can find documentation here:"
 
-#: src/main.py:42
+#: src/main.py:45
 msgid "Выберите функцию"
 msgstr "Choose function."
 
-#: src/main.py:60
+#: src/main.py:63
 msgid "Не распознано '"
 msgstr "Can't recognize '"
 
@@ -74,15 +74,39 @@ msgstr "Temperature"
 msgid "Описание"
 msgstr "Description"
 
-#: src/parsing.py:215
+#: src/parsing.py:169
+msgid "По ощущению"
+msgstr "Feels like"
+
+#: src/parsing.py:175
+msgid "Ветер"
+msgstr "Wind"
+
+#: src/parsing.py:188
+msgid "Давление"
+msgstr "Pressure"
+
+#: src/parsing.py:195
+msgid "Влажность"
+msgstr "Humidity"
+
+#: src/parsing.py:201
+msgid "Геомагнитная активность"
+msgstr "Geomagnetic activity"
+
+#: src/parsing.py:207
+msgid "Температура воды"
+msgstr "Water temperature"
+
+#: src/parsing.py:221
 msgid "Кино"
 msgstr "Cinema"
 
-#: src/parsing.py:215
+#: src/parsing.py:221
 msgid "Театр"
 msgstr "Theatre"
 
-#: src/parsing.py:215
+#: src/parsing.py:221
 msgid "Концерт"
 msgstr "Concerts"
 
@@ -98,10 +122,6 @@ msgstr "By ingredients"
 msgid "Следующий"
 msgstr "Next"
 
-#: src/recipes.py:32
-msgid "Ингредиенты:\n"
-msgstr "Ingredients:\n"
-
 #: src/recipes.py:45
 msgid "Нужен рецепт с определенными ингредиентами или любой?"
 msgstr "Do you need a recipe with certain ingredients or just any recipe?"
@@ -114,7 +134,7 @@ msgstr "Enter ingredients in Russian, "
 msgid ""
 "начиная со слова 'Ингредиенты:'\n"
 " Пример: \n"
-msgstr "starting with the words 'Ингредиенты:'\n"
+msgstr "starting with the word 'Ингредиенты:'\n"
 
 #: src/recipes.py:67
 msgid "'Ингредиенты:  Вишня, Корица, Сахар'\n"
@@ -179,4 +199,7 @@ msgstr "More"
 #: src/weather.py:29
 msgid "^Погода$"
 msgstr "^Weather$"
+
+#~ msgid "Ингредиенты:\n"
+#~ msgstr "Ingredients:\n"
 

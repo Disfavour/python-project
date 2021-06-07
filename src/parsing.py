@@ -166,13 +166,13 @@ class WEATHER(PARSER):
 
         base_feel = small_table_1[0]
         # feel = base_feel.find("div", class_="info_label").text.strip()
-        feel = "По ощущению"
+        feel = _("По ощущению")
         feel_temp = base_feel.find("div", class_="info_value").find("span", class_="unit_temperature_c").text.strip()
         ans.append([feel, feel_temp])
 
         base_wind = small_table_1[1]
         # wind = base_wind.find("div", class_="info_label").text.strip()
-        wind = "Ветер"
+        wind = _("Ветер")
         wind_speed = base_wind.find("div", class_="info_value").find("span", class_="unit_wind_m_s").text.strip()
         ans.append([wind, wind_speed])
 
@@ -185,26 +185,26 @@ class WEATHER(PARSER):
 
         base_pressure = small_table_2[0]
         # pressure = base_pressure.find("div", class_="info_label").text.strip()
-        pressure = "Давление"
+        pressure = _("Давление")
         pressure_count = base_pressure.find("div", class_="info_value").find(
             "span", class_="unit_pressure_mm_hg_atm").text.strip()
         ans.append([pressure, pressure_count])
 
         base_humidity = small_table_2[1]
         # humidity = base_humidity.find("div", class_="info_label").text.strip()
-        humidity = "Влажность"
+        humidity = _("Влажность")
         humidity_count = base_humidity.find("div", class_="info_value").text.strip()
         ans.append([humidity, humidity_count])
 
         base_geomagn_act = small_table_2[2]
         # geomagn_act = base_geomagn_act.find("div", class_="info_label").find("a").text.strip()
-        geomagn_act = "Геомагнитная активность"
+        geomagn_act = _("Геомагнитная активность")
         geomagn_act_count = base_geomagn_act.find("div", class_="info_value").text.strip()
         ans.append([geomagn_act, geomagn_act_count])
 
         base_water_temp = small_table_2[3]
         # water_temp = base_water_temp.find("div", class_="info_label").text.strip()
-        water_temp = "Температура воды"
+        water_temp = _("Температура воды")
         water_temp_count = base_water_temp.find("div", class_="info_value").find(
             "span", class_="unit_temperature_c").text.strip()
         ans.append([water_temp, water_temp_count])

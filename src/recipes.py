@@ -19,19 +19,19 @@ RECIPES_LIST = []
 CNT = 0
 
 
-def form_answer(recipe: tuple) -> str:
+def form_answer(recipe: dict) -> str:
     """
     Оформить данные о рецепте в виде, удобном для вывода в чат с пользователем.
 
     :param recipe: данные рецепта
     """
     ingr = ""
-    for num, item in enumerate(recipe[1]["ingrs"]):
+    for num, item in enumerate(recipe["ingrs"]):
         ingr += f"{num+1}) {item}\n"
     return fmt.text(
-        fmt.text(fmt.hbold(recipe[1]["name"])),
-        fmt.text(_("Ингредиенты:\n"), ingr),
-        fmt.hlink(recipe[1]["name"], recipe[1]["link"]),
+        fmt.text(fmt.hbold(recipe["name"])),
+        fmt.text("Ингредиенты:\n", ingr),
+        fmt.hlink(recipe["name"], recipe["link"]),
         sep="\n"
     )
 
@@ -57,7 +57,7 @@ async def recipes_handle_callback(call: aiogram.types.CallbackQuery):
     if choice == _("Любой"):
         cur_recipe = database.fetch_by_id(random.randint(1, 4497))[0]
         await call.message.answer(
-            form_answer(cur_recipe),
+            form_answer(cur_recipe[1]),
             parse_mode=aiogram.types.ParseMode.HTML,
             reply_markup=get_more_inline_keyboard(choice))
     elif choice == _("По ингредиентам"):
