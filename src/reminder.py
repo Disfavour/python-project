@@ -6,8 +6,8 @@ import aiogram
 import aiogram.utils.markdown as fmt
 import nest_asyncio
 
-from . import database
-from .stuff import get_inline_keyboard_from_list
+import database
+from stuff import get_inline_keyboard_from_list
 
 CHOICES = ["День Рождения", "ЖКХ", "Мобильная Связь", "Планер", "Подписки", "Приём Лекарств", "Удалить"]
 YESNO = ["Да", "Нет"]

@@ -3,8 +3,8 @@ import aiogram
 import os
 import gettext
 
-from . import stuff
-from . import parsing
+import stuff
+import parsing
 
 gettext.install("telbot", os.path.dirname(__file__))
 

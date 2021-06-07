@@ -1,5 +1,5 @@
-main
+weather
 ====================
-.. automodule:: main
+.. automodule:: weather
    :members:
    :private-members:
