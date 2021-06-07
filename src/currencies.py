@@ -5,6 +5,37 @@ import aiogram
 from stuff import get_inline_keyboard_from_list
 
 CHOICE = ["Конвертер валют", "Курс Валют"]
+import requests
+
+CURRENCIES = ["RUB", "EUR", "USD", "GBP", "CNY", "CHF", "BYN"]
+
+
+class Currency:
+    link = "https://www.cbr-xml-daily.ru/daily_json.js"
+
+    def bank(self, link):
+        link = Currency.link
+        data = requests.get(link)
+        forex = data.json()['Valute']
+        return forex
+
+
+class cur(Currency):
+    def __init__(self, amount):
+        self.amount = amount
+        self.bank_link = self.bank(Currency.link)
+
+    def exchange(self, cur1, cur2):
+        lst = [cur1, cur2]
+        for i, j in enumerate(lst):
+            if j != "RUB":
+                lst[i] = self.bank_link[j]['Value']  # ?
+            else:
+                lst[i] = 1
+        return lst[1] * self.amount / lst[0]
+
+
+cur(1).exchange("RUB", "USD")
 
 
 async def currency_handler(message: aiogram.types.Message):
