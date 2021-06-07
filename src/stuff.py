@@ -8,7 +8,7 @@ gettext.install("telbot", os.path.dirname(__file__))
 
 base_options = [_("Гороскоп"), _("Новости"), _("Погода"), _("Афиша"),
                 _("Напоминания"), _("Счётчик расходов/доходов"),
-                _("Списки покупок"), _("Кулинарные рецепты")]
+                _("Списки покупок"), _("Кулинарные рецепты"), _("Валюты")]
 
 
 def get_inline_keyboard_from_list(items: list) -> aiogram.types.InlineKeyboardMarkup:

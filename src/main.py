@@ -10,10 +10,12 @@ import recipes
 import reminder
 import stuff
 import weather
+import currencies
 
 import locale
 import os
 import gettext
+
 
 gettext.install("telbot", os.path.dirname(__file__))
 
@@ -99,6 +101,7 @@ class REGISTRATION:
         afisha.register_handlers(self.dp)
         recipes.register_handlers(self.dp)
         reminder.register_handlers(self.dp)
+        currencies.register_handlers(self.dp)
 
         # Это последнее, иначе эхо-обработчик перебьёт другие.
         self.register_base_handlers()
