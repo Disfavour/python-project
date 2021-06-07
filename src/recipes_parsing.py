@@ -5,7 +5,7 @@ import re
 import requests
 from bs4 import BeautifulSoup
 
-import database
+from . import database
 
 URL = "https://www.povarenok.ru/recipes/"
 HEADERS = {
