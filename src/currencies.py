@@ -6,8 +6,10 @@ from stuff import get_inline_keyboard_from_list
 
 CHOICE = ["Конвертер валют", "Курс Валют"]
 
-CURRENCIES_FROM = ["RUB", "EUR", "USD", "GBP", "CNY", "CHF", "BYN"]
-CURRENCIES_TO = ["в RUB", "в EUR", "в USD", "в GBP", "в CNY", "в CHF", "в BYN"]
+CURRENCIES_FROM = ["RUB (Рубль)", "EUR (Евро)", "USD (Доллар)", "GBP (Фунт стерлингов)",
+                   "CNY (Китайский Юань)", "CHF (Швейцарский франк)", "BYN (Белорусский рубль)"]
+CURRENCIES_TO = ["в RUB (Рубль)", "в EUR (Евро)", "в USD (Доллар)", "в GBP (Фунт стерлингов)",
+                 "в CNY (Китайский Юань)", "в CHF (Швейцарский франк)", "в BYN (Белорусский рубль)"]
 cur1, cur2 = '', ''
 
 
@@ -66,8 +68,8 @@ async def currency_handle_callback(call: aiogram.types.CallbackQuery):
             reply_markup=get_inline_keyboard_from_list(CURRENCIES_FROM))
     elif choice == "Курс Валют":
         for i in CURRENCIES_FROM[1:]:
-            res = Exchange(1).exchange("RUB", i)
-            await call.message.answer("RUB -> {}: {}".format(i, res), parse_mode=aiogram.types.ParseMode.HTML)
+            res = Exchange(1).exchange(i.split()[0], "RUB")
+            await call.message.answer("{} -> RUB: {}".format(i, res), parse_mode=aiogram.types.ParseMode.HTML)
 
 
 async def exchange_currency_handle_callback(call: aiogram.types.CallbackQuery):
@@ -78,7 +80,7 @@ async def exchange_currency_handle_callback(call: aiogram.types.CallbackQuery):
     """
     print('exchange_currency_handle_callback')
     global cur1
-    cur1 = call.data
+    cur1 = call.data.split()[0]
     await call.message.edit_text(
         text="Выберите валюту, в которую нужно перевести",
         reply_markup=get_inline_keyboard_from_list(CURRENCIES_TO))
@@ -104,9 +106,10 @@ async def return_exchange_handle_callback(message: aiogram.types.Message):
     :param call: вызов бота
     """
     print('return_exchange_handle_callback')
+    print(cur1, cur2)
     res = Exchange(message.text).exchange(cur1, cur2)
     print(res)
-    await message.answer(text=res, parse_mode=aiogram.types.ParseMode.HTML)
+    await message.answer(text="{} -> {}: {}".format(cur1, cur2, res), parse_mode=aiogram.types.ParseMode.HTML)
 
 
 def register_handlers(dp: aiogram.Dispatcher) -> None:

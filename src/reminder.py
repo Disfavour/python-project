@@ -10,6 +10,7 @@ import database
 from stuff import get_inline_keyboard_from_list
 
 CHOICES = ["День Рождения", "ЖКХ", "Мобильная Связь", "Планер", "Подписки", "Приём Лекарств", "Удалить"]
+YESNO = ["Да", "Нет"]
 choice = ""
 nest_asyncio.apply()
 
@@ -82,8 +83,8 @@ async def reminder_handle_callback(call: aiogram.types.CallbackQuery):
                                            "Например:\nНапоминание: Ингавирин 14:15"),
                                   parse_mode=aiogram.types.ParseMode.HTML)
     elif choice == "Удалить":
-        await call.message.answer(fmt.text("Выберите категорию, из которой нужно удалить напоминание"),
-                                  reply_markup=get_inline_keyboard_from_list(CHOICES[:-1]))
+        await call.message.answer(text="Вы уверены, что хотите удалить все напоминания?",
+                                  reply_markup=get_inline_keyboard_from_list(YESNO))
 
 
 async def reminder_handle_table(message: aiogram.types.Message):
@@ -114,6 +115,21 @@ async def reminder_handle_table(message: aiogram.types.Message):
     await message.answer("Напоминание добавлено", parse_mode=aiogram.types.ParseMode.HTML)
 
 
+async def yes_no_handle(call: aiogram.types.CallbackQuery):
+    """
+    Удаление напоминания.
+
+    :param call: сообщение боту
+    """
+    msg = call.data
+    print(msg)
+    if msg == "Да":
+        database.delete_table_data("reminders")
+        await call.message.answer("Все напоминания удалены", parse_mode=aiogram.types.ParseMode.HTML)
+    else:
+        await call.message.answer("Тогда не будем удалять", parse_mode=aiogram.types.ParseMode.HTML)
+
+
 def register_handlers(dp: aiogram.Dispatcher) -> None:
     """
     Зарегистрировать обработчики.
@@ -124,4 +140,5 @@ def register_handlers(dp: aiogram.Dispatcher) -> None:
     dp.register_callback_query_handler(reminder_handle_callback, text=CHOICES)
     dp.register_message_handler(reminder_handle_table, regexp=r"Напоминание: ([a-zA-Zа-яА-Я ]+ ((\d{2}\.\d{2}"
                                                               r"(\.\d{2,4})?( \d{2}:\d{2})?|"
-                                                              r"(\d{2}(:\d{2})?)))|\d+|[а-яА-Я]+)")
+                                                              r"(\d{2}(:\d{2})?)))|\d+)")
+    dp.register_callback_query_handler(yes_no_handle, regexp=r"Да|Нет")

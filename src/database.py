@@ -161,6 +161,30 @@ def get_line_notif(line_data: str):
         return res
 
 
+def delete_table_data(t_name:str):
+    """
+    Добавить запись в таблицу.
+
+    :param t_name: название заполняемой таблицы
+    """
+    try:
+        connection = psycopg2.connect(
+            user=USER,
+            password=PASSWORD,
+            host="127.0.0.1",
+            port="5432",
+            database=DATABASE)
+        cursor = connection.cursor()
+        cursor.execute(f'DELETE FROM {t_name};')
+        connection.commit()
+    except (Exception, Error) as error:
+        print("Ошибка при работе с базой данных ", error)
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
+
+
 def fetch_by_id(id: int) -> list:
     """
     Получить рецепт по id.
