@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-06-07 14:03+0300\n"
+"POT-Creation-Date: 2021-06-07 23:41+0300\n"
 "PO-Revision-Date: 2021-06-06 12:26+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,11 +18,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.0\n"
 
-#: src/afisha.py:22
+#: src/__main__.py:30
+msgid "Проект"
+msgstr "Project"
+
+#: src/__main__.py:32
+msgid "Привет! Я бот-помощник, совмещаю в себе много полезных функций. "
+msgstr "Hello! I am bot-assistant, I provide many functions. "
+
+#: src/__main__.py:33
+msgid "Чтобы начать, введите /start. "
+msgstr "To start work enter /start. "
+
+#: src/__main__.py:34
+msgid "Документацию можно найти здесь:"
+msgstr "You can find documentation here:"
+
+#: src/__main__.py:46
+msgid "Выберите функцию"
+msgstr "Choose function."
+
+#: src/__main__.py:64
+msgid "Не распознано '"
+msgstr "Can't recognize '"
+
+#: src/afisha.py:23
 msgid "Что именно?"
 msgstr "What exactly?"
 
-#: src/afisha.py:52
+#: src/afisha.py:53
 msgid "^Афиша$"
 msgstr "^Cultural events$"
 
@@ -30,39 +54,15 @@ msgstr "^Cultural events$"
 msgid "Ошибка при работе с базой данных "
 msgstr "Error occured while working with database "
 
-#: src/horoscope.py:21
+#: src/horoscope.py:22
 msgid "Выберите ваш знак зодиака"
 msgstr "Choose your Zodiac sign"
 
-#: src/horoscope.py:42
+#: src/horoscope.py:43
 msgid "^Гороскоп$"
 msgstr "^Horoscope$"
 
-#: src/main.py:29
-msgid "Проект"
-msgstr "Project"
-
-#: src/main.py:31
-msgid "Привет! Я бот-помощник, совмещаю в себе много полезных функций. "
-msgstr "Hello! I am bot-assistant, I provide many functions. "
-
-#: src/main.py:32
-msgid "Чтобы начать, введите /start. "
-msgstr "To start work enter /start. "
-
-#: src/main.py:33
-msgid "Документацию можно найти здесь:"
-msgstr "You can find documentation here:"
-
-#: src/main.py:45
-msgid "Выберите функцию"
-msgstr "Choose function."
-
-#: src/main.py:63
-msgid "Не распознано '"
-msgstr "Can't recognize '"
-
-#: src/news.py:62
+#: src/news.py:63
 msgid "^Новости$"
 msgstr "^News$"
 
@@ -110,53 +110,53 @@ msgstr "Theatre"
 msgid "Концерт"
 msgstr "Concerts"
 
-#: src/recipes.py:15 src/recipes.py:56
+#: src/recipes.py:16 src/recipes.py:57
 msgid "Любой"
 msgstr "Any"
 
-#: src/recipes.py:15 src/recipes.py:62
+#: src/recipes.py:16 src/recipes.py:63
 msgid "По ингредиентам"
 msgstr "By ingredients"
 
-#: src/recipes.py:16 src/stuff.py:46
+#: src/recipes.py:17 src/stuff.py:46
 msgid "Следующий"
 msgstr "Next"
 
-#: src/recipes.py:45
+#: src/recipes.py:46
 msgid "Нужен рецепт с определенными ингредиентами или любой?"
 msgstr "Do you need a recipe with certain ingredients or just any recipe?"
 
-#: src/recipes.py:65
+#: src/recipes.py:66
 msgid "Введите ингредиенты с большой буквы через запятую, "
 msgstr "Enter ingredients in Russian, "
 
-#: src/recipes.py:66
+#: src/recipes.py:67
 msgid ""
 "начиная со слова 'Ингредиенты:'\n"
 " Пример: \n"
 msgstr "starting with the word 'Ингредиенты:'\n"
 
-#: src/recipes.py:67
+#: src/recipes.py:68
 msgid "'Ингредиенты:  Вишня, Корица, Сахар'\n"
 msgstr "Example: 'Ингредиенты:  Вишня, Корица, Сахар'\n"
 
-#: src/recipes.py:68
+#: src/recipes.py:69
 msgid "По возможности уточняйте название ингредиента: "
 msgstr "Enter ingredients with details: "
 
-#: src/recipes.py:69
+#: src/recipes.py:70
 msgid "вместо 'Перец' введите 'Перец черный' и т.п."
 msgstr "instead of 'Перец' enter 'Перец черный'."
 
-#: src/recipes.py:98
+#: src/recipes.py:99
 msgid "Нет рецептов с таким набором ингредиентов."
 msgstr "No recipes with such ingredients."
 
-#: src/recipes.py:117
+#: src/recipes.py:118
 msgid "Рецепты с такими ингредиентами закончились."
 msgstr "Recipes with such ingredients are over."
 
-#: src/recipes.py:127
+#: src/recipes.py:128
 msgid "^Кулинарные рецепты$"
 msgstr "^Recipes$"
 
@@ -192,11 +192,15 @@ msgstr "Shopping list"
 msgid "Кулинарные рецепты"
 msgstr "Recipes"
 
+#: src/stuff.py:11
+msgid "Валюты"
+msgstr ""
+
 #: src/stuff.py:35
 msgid "Ещё"
 msgstr "More"
 
-#: src/weather.py:29
+#: src/weather.py:30
 msgid "^Погода$"
 msgstr "^Weather$"
 
