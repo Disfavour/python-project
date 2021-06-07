@@ -86,7 +86,7 @@ async def exchange_currency_handle_callback(call: aiogram.types.CallbackQuery):
 
 async def amount_currency_handle_callback(call: aiogram.types.CallbackQuery):
     """
-    Обработка нажатия на кнопки встроенной клавиатуры.
+    Ввод с клавиатуры.
 
     :param call: вызов бота
     """
@@ -99,7 +99,7 @@ async def amount_currency_handle_callback(call: aiogram.types.CallbackQuery):
 
 async def return_exchange_handle_callback(message: aiogram.types.Message):
     """
-    Обработка нажатия на кнопки встроенной клавиатуры.
+    Окончательный ответ на запрос конвертера валют.
 
     :param call: вызов бота
     """
