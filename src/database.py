@@ -135,17 +135,17 @@ def get_line_notif(line_data: str):
         elif line_data == "Планер":
             hour, minute = 0, 0
             if date_time.hour < 10:
-                hour = '0'+str(date_time.hour)
+                hour = '0' + str(date_time.hour)
             if date_time.minute < 10:
-                minute = '0'+str(date_time.minute)
+                minute = '0' + str(date_time.minute)
             cursor.execute(f'SELECT * from reminders WHERE date = \'{date_time.date}\' ' +
                            f'and time = \'{hour}:{minute}\' and type=\'{line_data}\';')
         elif line_data == "День Рождения":
             cursor.execute('SELECT * from reminders WHERE ' +
                            f'date = \'{date_time.date}\' and type=\'{line_data}\';')
         elif line_data == "Приём Лекарств":
-            hour = '0'+str(date_time.hour) if date_time.hour < 10 else date_time.hour
-            minute = '0'+str(date_time.minute) if date_time.minute < 10 else date_time.minute
+            hour = '0' + str(date_time.hour) if date_time.hour < 10 else date_time.hour
+            minute = '0' + str(date_time.minute) if date_time.minute < 10 else date_time.minute
             cursor.execute('SELECT * from reminders WHERE ' +
                            f'time = \'{hour}:{minute}\' and type=\'{line_data}\';')
         connection.commit()
