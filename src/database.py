@@ -9,7 +9,6 @@ from psycopg2 import Error, extras
 
 from . import recipes_parsing
 from .read_db_conf import USER, PASSWORD, DATABASE
-#from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 gettext.install("telbot", os.path.dirname(__file__))
 
