@@ -9,6 +9,7 @@ from psycopg2 import Error, extras
 
 from . import recipes_parsing
 from .read_db_conf import USER, PASSWORD, DATABASE
+#from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 gettext.install("telbot", os.path.dirname(__file__))
 
@@ -19,12 +20,14 @@ def create_base() -> None:
     """Создать базу данных."""
     try:
         con = psycopg2.connect(
+            dbname="postgres",
             user=USER,
             password=PASSWORD,
             host="127.0.0.1",
             port="5432")
+        con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
         cursor = con.cursor()
-        sql_cr_db = "create database postgres_db"
+        sql_cr_db = "CREATE DATABASE exp_db;"
         cursor.execute(sql_cr_db)
         con.commit()
     except (Exception, Error) as error:
