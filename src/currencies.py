@@ -55,9 +55,13 @@ async def currency_handle_callback(call: aiogram.types.CallbackQuery):
     """
     choice = call.data
     if choice == "Конвертер валют":
-        """Обработка конвертера валют"""
+        await call.message.answer(
+            text="Выберите валюту, из которой нужно перевести",
+            reply_markup=get_inline_keyboard_from_list(CURRENCIES))
     elif choice == "Курс Валют":
-        """Обработка курса валют"""
+        for i in CURRENCIES[1:]:
+            res = cur(1).exchange("RUB", i)
+            await call.message.answer("RUB -> {}: {}".format(i, res), parse_mode=aiogram.types.ParseMode.HTML)
 
 
 def register_handlers(dp: aiogram.Dispatcher) -> None:
