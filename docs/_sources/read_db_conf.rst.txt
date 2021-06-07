@@ -1,5 +1,5 @@
-weather
+read_db_conf
 ====================
-.. automodule:: weather
+.. automodule:: read_db_conf
    :members:
    :private-members:
