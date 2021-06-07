@@ -1,31 +1,38 @@
 """Валюты."""
 
 import aiogram
+import requests
 
 from stuff import get_inline_keyboard_from_list
 
 CHOICE = ["Конвертер валют", "Курс Валют"]
-import requests
 
 CURRENCIES = ["RUB", "EUR", "USD", "GBP", "CNY", "CHF", "BYN"]
 
 
 class Currency:
+    """Класс валют."""
+
     link = "https://www.cbr-xml-daily.ru/daily_json.js"
 
     def bank(self, link):
+        """подключение к таблице с данными по курсу."""
         link = Currency.link
         data = requests.get(link)
         forex = data.json()['Valute']
         return forex
 
 
-class cur(Currency):
+class Exchange(Currency):
+    """Класс перевода валют."""
+
     def __init__(self, amount):
+        """Инициализировать перевод валют."""
         self.amount = amount
         self.bank_link = self.bank(Currency.link)
 
     def exchange(self, cur1, cur2):
+        """Перевод из валюты cur1 в cur2."""
         lst = [cur1, cur2]
         for i, j in enumerate(lst):
             if j != "RUB":
@@ -35,7 +42,7 @@ class cur(Currency):
         return lst[1] * self.amount / lst[0]
 
 
-cur(1).exchange("RUB", "USD")
+Exchange(1).exchange("RUB", "USD")
 
 
 async def currency_handler(message: aiogram.types.Message):
@@ -60,7 +67,7 @@ async def currency_handle_callback(call: aiogram.types.CallbackQuery):
             reply_markup=get_inline_keyboard_from_list(CURRENCIES))
     elif choice == "Курс Валют":
         for i in CURRENCIES[1:]:
-            res = cur(1).exchange("RUB", i)
+            res = Exchange(1).exchange("RUB", i)
             await call.message.answer("RUB -> {}: {}".format(i, res), parse_mode=aiogram.types.ParseMode.HTML)
 
 
