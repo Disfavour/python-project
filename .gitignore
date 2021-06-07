@@ -133,4 +133,3 @@ Pipfile
 src/bot_info.ini
 src/db_conf.ini
 .doit.db
-.buildinfo
