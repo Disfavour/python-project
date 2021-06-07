@@ -1,8 +1,9 @@
 """Обработка погоды."""
 import aiogram
-import parsing
 import os
 import gettext
+
+from . import parsing
 
 gettext.install("telbot", os.path.dirname(__file__))
 

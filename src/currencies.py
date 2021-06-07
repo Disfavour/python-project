@@ -3,7 +3,7 @@
 import aiogram
 import requests
 
-from stuff import get_inline_keyboard_from_list
+from .stuff import get_inline_keyboard_from_list
 
 CHOICE = ["Конвертер валют", "Курс Валют"]
 

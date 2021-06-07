@@ -3,11 +3,12 @@
 import aiogram
 import random
 import aiogram.utils.markdown as fmt
-import database
-from stuff import get_inline_keyboard_from_list, get_more_inline_keyboard
-from stuff import get_another_inline_keyboard
 import os
 import gettext
+
+from . import database
+from .stuff import get_inline_keyboard_from_list, get_more_inline_keyboard
+from .stuff import get_another_inline_keyboard
 
 gettext.install("telbot", os.path.dirname(__file__))
 
