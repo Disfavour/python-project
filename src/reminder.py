@@ -1,6 +1,7 @@
 """Обработка напоминаний."""
 import asyncio
 
+import aiocron
 import aiogram
 import aiogram.utils.markdown as fmt
 import nest_asyncio
@@ -21,6 +22,21 @@ async def reminder_handle(message: aiogram.types.Message):
     """
     await message.answer("Выберите тип напоминания",
                          reply_markup=get_inline_keyboard_from_list(CHOICES))
+
+    @aiocron.crontab('* * * * *')
+    async def at_time():
+        try:
+            for j in CHOICES[:-1]:
+                res = database.get_line_notif(j)
+                print(res)
+                for i in res:
+                    if i is not None:
+                        notif = 'Напоминяние: {} – {} {}'.format(i[-1], i[-2], i[1])
+                        await message.answer(notif, parse_mode=aiogram.types.ParseMode.HTML)
+        except Exception as error:
+            print(error)
+
+    asyncio.get_event_loop().run_forever()
 
 
 async def reminder_handle_callback(call: aiogram.types.CallbackQuery):
@@ -67,7 +83,7 @@ async def reminder_handle_callback(call: aiogram.types.CallbackQuery):
                                   parse_mode=aiogram.types.ParseMode.HTML)
     elif choice == "Удалить":
         await call.message.answer(fmt.text("Выберите категорию, из которой нужно удалить напоминание"),
-                                  reply_markup=get_inline_keyboard_from_list(CHOICES[:-2]))
+                                  reply_markup=get_inline_keyboard_from_list(CHOICES[:-1]))
 
 
 async def reminder_handle_table(message: aiogram.types.Message):
@@ -96,22 +112,6 @@ async def reminder_handle_table(message: aiogram.types.Message):
     data["type"] = choice
     database.add_line(data, "reminders")
     await message.answer("Напоминание добавлено", parse_mode=aiogram.types.ParseMode.HTML)
-    date = data["date"] if data["date"] else ["*"] * 3
-    time = data["time"] if data["time"] else ["*"] * 2
-    print(date, time)
-
-    # @aiocron.crontab('1 * * * *')
-    # async def at_time():
-    #     date_time = datetime.datetime.now()
-    #     try:
-    #         res = database.get_line("reminders")
-    #         print(res)
-    #         await message.answer(choice + ", " + ' '.join(message.text.split()[1:-1]),
-    #                              parse_mode=aiogram.types.ParseMode.HTML)
-    #     except Exception:
-    #         pass
-
-    asyncio.get_event_loop().run_forever()
 
 
 def register_handlers(dp: aiogram.Dispatcher) -> None:
