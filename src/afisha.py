@@ -2,6 +2,10 @@
 import aiogram
 import stuff
 import parsing
+import os
+import gettext
+
+gettext.install("telbot", os.path.dirname(__file__))
 
 
 afisha_obj = parsing.AFISHA()
@@ -15,7 +19,7 @@ async def afisha_handle(message: aiogram.types.Message):
     """
     options = afisha_obj.options
     afisha_obj.setup()
-    await message.answer("Что именно?", reply_markup=stuff.get_inline_keyboard_from_list(options))
+    await message.answer(_("Что именно?"), reply_markup=stuff.get_inline_keyboard_from_list(options))
 
 
 async def afisha_handle_callback(call: aiogram.types.CallbackQuery):
@@ -45,7 +49,7 @@ def register_handlers(dp: aiogram.Dispatcher) -> None:
 
     :param dp: диспетчер
     """
-    dp.register_message_handler(afisha_handle, regexp=r"^Афиша$")
+    dp.register_message_handler(afisha_handle, regexp=_(r"^Афиша$"))
     dp.register_callback_query_handler(afisha_handle_callback, text=afisha_obj.options)
 
 

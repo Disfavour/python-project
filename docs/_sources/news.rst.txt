@@ -1,0 +1,4 @@
+news
+===================
+.. automodule:: news
+   :members:

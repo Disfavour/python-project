@@ -1,0 +1,4 @@
+horoscope
+===================
+.. automodule:: horoscope
+   :members:

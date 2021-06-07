@@ -1,11 +1,18 @@
 """Функции для работы с базой данных."""
 import datetime
 
+import gettext
+import os
+
 import psycopg2
 from psycopg2 import Error, extras
 
 import recipes_parsing
-from recipe_conf import USER, PASSWORD, DATABASE
+from read_db_conf import USER, PASSWORD, DATABASE
+
+gettext.install("telbot", os.path.dirname(__file__))
+
+ERROR_MESSAGE = _("Ошибка при работе с базой данных ")
 
 
 def create_base() -> None:
@@ -21,7 +28,7 @@ def create_base() -> None:
         cursor.execute(sql_cr_db)
         con.commit()
     except (Exception, Error) as error:
-        print("Ошибка при работе с базой данных ", error)
+        print(ERROR_MESSAGE, error)
     finally:
         if con:
             cursor.close()
@@ -64,7 +71,7 @@ def create_table() -> None:
                 if not cursor.fetchone()[0]:
                     recipes_parsing.parse()
     except (Exception, Error) as error:
-        print("Ошибка при работе с базой данных ", error)
+        print(ERROR_MESSAGE, error)
     finally:
         if connection:
             cursor.close()
@@ -143,7 +150,7 @@ def get_line_notif(line_data: str):
                            f'time = \'{hour}:{minute}\' and type=\'{line_data}\';')
         connection.commit()
     except (Exception, Error) as error:
-        print("Ошибка при работе с базой данных ", error)
+        print(ERROR_MESSAGE, error)
     finally:
         res = cursor.fetchall()
         if connection:
@@ -169,7 +176,7 @@ def fetch_by_id(id: int) -> list:
         cursor.execute(f"SELECT * FROM recipes WHERE id = {id};")
         res = cursor.fetchall()
     except (Exception, Error) as error:
-        print("Ошибка при работе с базой данных ", error)
+        print(ERROR_MESSAGE, error)
     finally:
         if connection:
             cursor.close()
@@ -200,7 +207,7 @@ def fetch_by_ingreds(ingreds: list) -> list:
         cursor.execute(f"SELECT * FROM recipes WHERE {search};")
         res = cursor.fetchall()
     except (Exception, Error) as error:
-        print("Ошибка при работе с базой данных ", error)
+        print(ERROR_MESSAGE, error)
     finally:
         if connection:
             cursor.close()
