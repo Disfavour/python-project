@@ -145,7 +145,7 @@ def get_line_notif(line_data: str):
     except (Exception, Error) as error:
         print("Ошибка при работе с базой данных ", error)
     finally:
-        res = cursor.fetchone()
+        res = cursor.fetchall()
         if connection:
             cursor.close()
             connection.close()

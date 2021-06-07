@@ -29,8 +29,10 @@ async def reminder_handle(message: aiogram.types.Message):
             for j in CHOICES[:-1]:
                 res = database.get_line_notif(j)
                 print(res)
-                if res is not None:
-                    print('Напоминяние: {} – {} {}'.format(res[-1], res[-2], res[1]))
+                for i in res:
+                    if i is not None:
+                        notif = 'Напоминяние: {} – {} {}'.format(i[-1], i[-2], i[1])
+                        await message.answer(notif, parse_mode=aiogram.types.ParseMode.HTML)
         except Exception as error:
             print(error)
 
