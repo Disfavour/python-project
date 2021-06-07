@@ -29,7 +29,7 @@ def form_answer(recipe: tuple) -> str:
         ingr += f"{num+1}) {item}\n"
     return fmt.text(
         fmt.text(fmt.hbold(recipe[1]["name"])),
-        fmt.text(_("Ингредиенты:\n"), ingr),
+        fmt.text("Ингредиенты:\n", ingr),
         fmt.hlink(recipe[1]["name"], recipe[1]["link"]),
         sep="\n"
     )
