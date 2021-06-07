@@ -7,7 +7,7 @@ import psycopg2
 from psycopg2 import Error
 
 import recipes_parsing
-from recipe_database import USER, PASSWORD, DATABASE
+from read_db_conf import USER, PASSWORD, DATABASE
 
 gettext.install("telbot", os.path.dirname(__file__))
 
