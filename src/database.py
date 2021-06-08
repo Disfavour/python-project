@@ -6,6 +6,7 @@ import os
 
 import psycopg2
 from psycopg2 import Error, extras
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 import recipes_parsing
 from read_db_conf import USER, PASSWORD, DATABASE
@@ -128,26 +129,20 @@ def get_line_notif(line_data: str):
             database=DATABASE)
         cursor = connection.cursor(cursor_factory=extras.DictCursor)
         date_time = datetime.datetime.now()
-        if line_data in ("Мобильная Связь", "Подписки"):
-            cursor.execute(f'SELECT * from reminders WHERE (date = \'{date_time.date}\' ' +
-                           f'or date = \'{date_time.day}\') and type=\'{line_data}\';')
-        elif line_data == "ЖКХ":
-            cursor.execute('SELECT * from reminders WHERE ' +
-                           f'date = \'{date_time.day}\' and type=\'{line_data}\';')
+        hour = '0' + str(date_time.hour) if date_time.hour < 10 else date_time.hour
+        minute = '0' + str(date_time.minute) if date_time.minute < 10 else date_time.minute
+        day = '0' + str(date_time.day) if date_time.day < 10 else date_time.day
+        month = '0' + str(date_time.month) if date_time.month < 10 else date_time.month
+        if line_data in ("Мобильная Связь", "Подписки", "ЖКХ"):
+            cursor.execute(f'SELECT * from reminders WHERE date = \'{day}\' and ' +
+                           f'time = \'{hour}:{minute}\' and type=\'{line_data}\';')
         elif line_data == "Планер":
-            hour, minute = 0, 0
-            if date_time.hour < 10:
-                hour = '0' + str(date_time.hour)
-            if date_time.minute < 10:
-                minute = '0' + str(date_time.minute)
             cursor.execute(f'SELECT * from reminders WHERE date = \'{date_time.date}\' ' +
                            f'and time = \'{hour}:{minute}\' and type=\'{line_data}\';')
         elif line_data == "День Рождения":
-            cursor.execute('SELECT * from reminders WHERE ' +
-                           f'date = \'{date_time.date}\' and type=\'{line_data}\';')
+            cursor.execute(f'SELECT * from reminders WHERE date = \'{day}.{month}\' ' +
+                           f'and time = \'{hour}:{minute}\' and type=\'{line_data}\';')
         elif line_data == "Приём Лекарств":
-            hour = '0' + str(date_time.hour) if date_time.hour < 10 else date_time.hour
-            minute = '0' + str(date_time.minute) if date_time.minute < 10 else date_time.minute
             cursor.execute('SELECT * from reminders WHERE ' +
                            f'time = \'{hour}:{minute}\' and type=\'{line_data}\';')
         connection.commit()
