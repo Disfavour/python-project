@@ -21,8 +21,8 @@ def list_print(shoplist: list) -> str:
     """
     out = ""
     for i in range(len(shoplist)):
-        out += shoplist[i][2]["name"] + ":\n"
-        lst = shoplist[i][2]["shopping_list"].split(',')
+        out += shoplist[i][1]["name"] + ":\n"
+        lst = shoplist[i][1]["shopping_list"].split(',')
         for j in range(len(lst)):
             out += f"{j + 1}. {lst[j]}\n"
         out += '\n'

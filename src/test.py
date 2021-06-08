@@ -1,7 +1,7 @@
 import unittest
-from src.recipes import form_answer
-from src.database import delete_table_data
-from src.parsing import NEWS, AFISHA, HOROSCOPE, WEATHER
+from recipes import form_answer
+from database import delete_table_data
+from parsing import NEWS, AFISHA, HOROSCOPE, WEATHER
 
 
 class TestBot(unittest.TestCase):
