@@ -172,12 +172,16 @@ def delete_table_data(t_name: str):
         cursor = connection.cursor()
         cursor.execute(f'DELETE FROM {t_name};')
         connection.commit()
+        cursor.execute(f'SELECT COUNT(*) AS RowCnt FROM {t_name};')
+        empty = cursor.fetchone()[0]
+        connection.commit()
     except (Exception, Error) as error:
         print("Ошибка при работе с базой данных ", error)
     finally:
         if connection:
             cursor.close()
             connection.close()
+        return empty
 
 
 def fetch_by_id(id: int) -> list:
