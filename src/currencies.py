@@ -103,13 +103,14 @@ async def return_exchange_handle_callback(message: aiogram.types.Message):
     """
     Окончательный ответ на запрос конвертера валют.
 
-    :param call: вызов бота
+    :param message: вызов бота
     """
     print('return_exchange_handle_callback')
     print(cur1, cur2)
     res = Exchange(message.text).exchange(cur1, cur2)
     print(res)
-    await message.answer(text="{} {} = {} {}".format(message.text, cur1, res, cur2), parse_mode=aiogram.types.ParseMode.HTML)
+    await message.answer(text="{} {} = {} {}".format(message.text, cur1, res, cur2),
+                         parse_mode=aiogram.types.ParseMode.HTML)
 
 
 def register_handlers(dp: aiogram.Dispatcher) -> None:

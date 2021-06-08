@@ -5,7 +5,6 @@ import aiocron
 import aiogram
 import aiogram.utils.markdown as fmt
 import nest_asyncio
-import datetime
 import database
 from stuff import get_inline_keyboard_from_list
 
@@ -31,13 +30,17 @@ async def reminder_handle(message: aiogram.types.Message):
 
 
 async def at_time(message: aiogram.types.Message):
+    """
+    Проверка на наличие напоминания в этот день и время.
+
+    :param message: сообщение
+    """
     try:
         for j in CHOICES[:-1]:
             res = database.get_line_notif(j)
-            print(res)
             for i in res:
                 if i is not None:
-                    notif = 'Напоминяние: {} – {} {}'.format(i[-1], i[-2], i[1])
+                    notif = 'Напоминание: {} – {} {}'.format(i[-1], i[-2], i[1])
                     await message.answer(notif, parse_mode=aiogram.types.ParseMode.HTML)
     except Exception as error:
         print(error)
