@@ -32,9 +32,9 @@ def task_test():
 
 def task_fill_db():
     """Create and fill tables."""
-    return {'actions': ['python3 -m src.database']}
-    #yield {'actions': ['python3 -m src.database'], 'name': 'create'}
-    #yield {'actions': ['python3 -m src.recipes_parsing'], 'name': 'fill'}
+    return {'actions': ['python3 src/database.py']}
+    #yield {'actions': ['python3 src/database.py'], 'name': 'create'}
+    #yield {'actions': ['python3 src/recipes_parsing.py'], 'name': 'fill'}
 
 def task_pot():
     """Re-create .pot ."""

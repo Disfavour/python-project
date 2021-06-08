@@ -5,6 +5,10 @@ import aiogram.utils.markdown as fmt
 import database
 from stuff import get_inline_keyboard_from_list, get_more_inline_keyboard
 from stuff import get_another_inline_keyboard
+import os
+import gettext
+
+gettext.install("telbot", os.path.dirname(__file__))
 
 CHOICE_MAIN = ["Добавить новый список", "Просмотреть лист списков", "Очистить лист списков"]
 
@@ -32,7 +36,7 @@ async def shopping_lists_handler(message: aiogram.types.Message):
     :param message: сообщение для бота
     """
     await message.answer(
-        fmt.text("Выберите интересующее действие."),
+        fmt.text(_("Выберите интересующее действие.")),
         reply_markup=get_inline_keyboard_from_list(CHOICE_MAIN))
 
 
@@ -88,6 +92,6 @@ def register_handlers(dp: aiogram.Dispatcher) -> None:
 
     :param dp: диспетчер бота
     """
-    dp.register_message_handler(shopping_lists_handler, regexp=r"^Списки покупок$")
+    dp.register_message_handler(shopping_lists_handler, regexp=_(r"^Списки покупок$"))
     dp.register_callback_query_handler(shopping_lists_handle_callback, text=CHOICE_MAIN)
     dp.register_message_handler(shopping_handle_lists, regexp=r"Список(.)*")

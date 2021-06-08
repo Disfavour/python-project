@@ -48,7 +48,7 @@ def create_table() -> None:
             port="5432",
             database=DATABASE)
         cursor = connection.cursor()
-        for i in ("recipes", "reminders"):
+        for i in ("recipes", "reminders", "shopping_lists"):
             cursor.execute(f'select exists(SELECT * FROM information_schema.tables \
                         WHERE lower(table_name) = lower(\'{i}\'));')
             exist = cursor.fetchone()
