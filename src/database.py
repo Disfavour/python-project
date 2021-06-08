@@ -101,13 +101,11 @@ def add_line(line: dict, t_name: str) -> None:
             database=DATABASE)
         cursor = connection.cursor()
         cur_line = f"{line}".replace("\"", "*").replace("\'", "\"")
-        print("cur_line: ", cur_line)
         if t_name == "recipes":
 
             cursor.execute(f'INSERT INTO {t_name} (recipe) \
                             VALUES (\'{cur_line}\');')
         elif t_name == "reminders":
-            print(line.values())
             cursor.execute(f'INSERT INTO {t_name} (name, date, time, type) \
                                         VALUES (%s,%s,%s,%s);', tuple(line.values()))
         elif t_name == "shopping_lists":
@@ -248,6 +246,31 @@ def fetch_by_ingreds(ingreds: list) -> list:
             cursor.close()
             connection.close()
             return res
+
+def take_all() -> list:
+    """
+    Получить все записи из таблицы списков покупок
+
+    :param id: идентификатор
+    """
+    try:
+        connection = psycopg2.connect(
+            user=USER,
+            password=PASSWORD,
+            host="127.0.0.1",
+            port="5432",
+            database=DATABASE)
+        cursor = connection.cursor()
+        cursor.execute(f"SELECT * FROM shopping_lists")
+        res = cursor.fetchall()
+    except (Exception, Error) as error:
+        print(ERROR_MESSAGE, error)
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
+            return res
+        return None
 
 
 if __name__ == "__main__":

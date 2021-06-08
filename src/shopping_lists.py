@@ -9,6 +9,22 @@ from stuff import get_another_inline_keyboard
 CHOICE_MAIN = ["Добавить новый список", "Просмотреть лист списков", "Очистить лист списков"]
 
 
+def list_print(shoplist: list) -> str:
+    """
+    Оформить данные о списке в виде, удобном для вывода в чат с пользователем.
+
+    :param shoplist: данные списка покупок
+    """
+    out = ""
+    for i in range(len(shoplist)):
+        out += shoplist[i][2]["name"] + ":\n"
+        lst = shoplist[i][2]["shopping_list"].split(',')
+        for j in range(len(lst)):
+            out += f"{j + 1}. {lst[j]}\n"
+        out += '\n'
+    return out
+
+
 async def shopping_lists_handler(message: aiogram.types.Message):
     """
     Обработка нажатия на кнопку 'Списки покупок'.
@@ -33,7 +49,7 @@ async def shopping_lists_handle_callback(call: aiogram.types.CallbackQuery):
                                            "Пример: \nСписок *Повседневный*: Хлеб, Молоко (2 литра), " +
                                            "Сахар, Бумажные полотенца"), parse_mode=aiogram.types.ParseMode.HTML)
     elif choice == "Просмотреть лист списков":
-        s = database.take_all()
+        s = list_print(database.take_all())
         if s:
             await call.message.answer(
                 s,
@@ -43,13 +59,16 @@ async def shopping_lists_handle_callback(call: aiogram.types.CallbackQuery):
                 "В базе данных нет доступных списков",
                 parse_mode=aiogram.types.ParseMode.HTML)
     elif choice == "Очистить лист списков":
-        print("Заглушка")
+        database.delete_table_data("shopping_lists")
+        await call.message.answer(
+            "Очистка произведена успешно",
+            parse_mode=aiogram.types.ParseMode.HTML)
 
 
 async def shopping_handle_lists(message: aiogram.types.Message):
     """
-    Сохранение списка.
 
+    Сохранение списка
     :param message: сообщение боту
     """
     shopping_lists = message.text
