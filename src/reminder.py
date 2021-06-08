@@ -41,7 +41,9 @@ async def at_time(message: aiogram.types.Message):
             print("res:", res)
             for i in res:
                 if i is not None:
-                    notif = 'Напоминание: {} – {} {} {}'.format(i[-1], i[1], i[2], i[3])
+                    print(i[4], i[1], i[2], i[3])
+                    notif = 'Напоминание: {} – {} {} {}'.format(i["type"], i["name"], i["date"], i["time"])
+                    print(notif)
                     await message.answer(notif, parse_mode=aiogram.types.ParseMode.HTML)
     except Exception as error:
         print(error)
