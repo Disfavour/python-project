@@ -24,6 +24,7 @@ Welcome to Телеграм бот's documentation!
    reminder
    stuff
    weather
+   shopping_lists
 
 
 Indices and tables

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>afisha &#8212; Документация Телеграм бот 0.1</title>
+    <title>shopping_lists &#8212; Документация Телеграм бот 0.1</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -17,8 +17,7 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="index" title="Алфавитный указатель" href="genindex.html" />
     <link rel="search" title="Поиск" href="search.html" />
-    <link rel="next" title="bot" href="bot.html" />
-    <link rel="prev" title="Welcome to Телеграм бот’s documentation!" href="index.html" />
+    <link rel="prev" title="weather" href="weather.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -32,46 +31,74 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-afisha">
-<span id="afisha"></span><h1>afisha<a class="headerlink" href="#module-afisha" title="Ссылка на этот заголовок">¶</a></h1>
-<p>Обработка афиши.</p>
+  <div class="section" id="module-shopping_lists">
+<span id="shopping-lists"></span><h1>shopping_lists<a class="headerlink" href="#module-shopping_lists" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Списки покупок.</p>
 <dl class="function">
-<dt id="afisha.afisha_handle">
-<code class="descclassname">afisha.</code><code class="descname">afisha_handle</code><span class="sig-paren">(</span><em>message: aiogram.types.message.Message</em><span class="sig-paren">)</span><a class="headerlink" href="#afisha.afisha_handle" title="Ссылка на это определение">¶</a></dt>
-<dd><p>Предоставить выбор вида афиши.</p>
+<dt id="shopping_lists.list_print">
+<code class="descclassname">shopping_lists.</code><code class="descname">list_print</code><span class="sig-paren">(</span><em>shoplist: list</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#shopping_lists.list_print" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Оформить данные о списке в виде, удобном для вывода в чат с пользователем.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>message</strong> – сообщение</td>
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>shoplist</strong> – данные списка покупок</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="function">
-<dt id="afisha.afisha_handle_callback">
-<code class="descclassname">afisha.</code><code class="descname">afisha_handle_callback</code><span class="sig-paren">(</span><em>call: aiogram.types.callback_query.CallbackQuery</em><span class="sig-paren">)</span><a class="headerlink" href="#afisha.afisha_handle_callback" title="Ссылка на это определение">¶</a></dt>
-<dd><p>Обработать нажатие кнопки.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>call</strong> – вызов</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="afisha.register_handlers">
-<code class="descclassname">afisha.</code><code class="descname">register_handlers</code><span class="sig-paren">(</span><em>dp: aiogram.dispatcher.dispatcher.Dispatcher</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#afisha.register_handlers" title="Ссылка на это определение">¶</a></dt>
+<dt id="shopping_lists.register_handlers">
+<code class="descclassname">shopping_lists.</code><code class="descname">register_handlers</code><span class="sig-paren">(</span><em>dp: aiogram.dispatcher.dispatcher.Dispatcher</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#shopping_lists.register_handlers" title="Ссылка на это определение">¶</a></dt>
 <dd><p>Зарегистрировать обработчики.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>dp</strong> – диспетчер</td>
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>dp</strong> – диспетчер бота</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="shopping_lists.shopping_handle_lists">
+<code class="descclassname">shopping_lists.</code><code class="descname">shopping_handle_lists</code><span class="sig-paren">(</span><em>message: aiogram.types.message.Message</em><span class="sig-paren">)</span><a class="headerlink" href="#shopping_lists.shopping_handle_lists" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Сохранение списка.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>message</strong> – сообщение боту</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="shopping_lists.shopping_lists_handle_callback">
+<code class="descclassname">shopping_lists.</code><code class="descname">shopping_lists_handle_callback</code><span class="sig-paren">(</span><em>call: aiogram.types.callback_query.CallbackQuery</em><span class="sig-paren">)</span><a class="headerlink" href="#shopping_lists.shopping_lists_handle_callback" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Обработка нажатия на кнопки встроенной клавиатуры.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>call</strong> – вызов бота</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="shopping_lists.shopping_lists_handler">
+<code class="descclassname">shopping_lists.</code><code class="descname">shopping_lists_handler</code><span class="sig-paren">(</span><em>message: aiogram.types.message.Message</em><span class="sig-paren">)</span><a class="headerlink" href="#shopping_lists.shopping_lists_handler" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Обработка нажатия на кнопку „Списки покупок“.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>message</strong> – сообщение для бота</td>
 </tr>
 </tbody>
 </table>
@@ -97,7 +124,7 @@
 <h3>Навигация</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">afisha</a></li>
+<li class="toctree-l1"><a class="reference internal" href="afisha.html">afisha</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bot.html">bot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database.html">database</a></li>
 <li class="toctree-l1"><a class="reference internal" href="horoscope.html">horoscope</a></li>
@@ -110,15 +137,14 @@
 <li class="toctree-l1"><a class="reference internal" href="reminder.html">reminder</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stuff.html">stuff</a></li>
 <li class="toctree-l1"><a class="reference internal" href="weather.html">weather</a></li>
-<li class="toctree-l1"><a class="reference internal" href="shopping_lists.html">shopping_lists</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">shopping_lists</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="предыдущая глава">Welcome to Телеграм бот’s documentation!</a></li>
-      <li>Next: <a href="bot.html" title="следующая глава">bot</a></li>
+      <li>Previous: <a href="weather.html" title="предыдущая глава">weather</a></li>
   </ul></li>
 </ul>
 </div>
@@ -146,7 +172,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |
-      <a href="_sources/afisha.rst.txt"
+      <a href="_sources/shopping_lists.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
