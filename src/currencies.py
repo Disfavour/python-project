@@ -2,14 +2,18 @@
 
 import aiogram
 import requests
+import os
+import gettext
 from stuff import get_inline_keyboard_from_list
 
-CHOICE = ["Конвертер валют", "Курс Валют"]
+gettext.install("telbot", os.path.dirname(__file__))
 
-CURRENCIES_FROM = ["RUB (Рубль)", "EUR (Евро)", "USD (Доллар)", "GBP (Фунт стерлингов)",
-                   "CNY (Китайский Юань)", "CHF (Швейцарский франк)", "BYN (Белорусский рубль)"]
-CURRENCIES_TO = ["в RUB (Рубль)", "в EUR (Евро)", "в USD (Доллар)", "в GBP (Фунт стерлингов)",
-                 "в CNY (Китайский Юань)", "в CHF (Швейцарский франк)", "в BYN (Белорусский рубль)"]
+CHOICE = [_("Конвертер валют"), _("Курс Валют")]
+
+CURRENCIES_FROM = [_("RUB (Рубль)"), _("EUR (Евро)"), _("USD (Доллар)"), _("GBP (Фунт стерлингов)"),
+                   _("CNY (Китайский Юань)"), _("CHF (Швейцарский франк)"), _("BYN (Белорусский рубль)")]
+CURRENCIES_TO = [_("в RUB (Рубль)"), _("в EUR (Евро)"), _("в USD (Доллар)"), _("в GBP (Фунт стерлингов)"),
+                 _("в CNY (Китайский Юань)"), _("в CHF (Швейцарский франк)"), _("в BYN (Белорусский рубль)")]
 cur1, cur2 = '', ''
 
 
@@ -51,7 +55,7 @@ async def currency_handler(message: aiogram.types.Message):
 
     :param message: сообщение для бота
     """
-    await message.answer(text="Выберите функцию", reply_markup=get_inline_keyboard_from_list(CHOICE))
+    await message.answer(text=_("Выберите функцию"), reply_markup=get_inline_keyboard_from_list(CHOICE))
 
 
 async def currency_handle_callback(call: aiogram.types.CallbackQuery):
@@ -60,13 +64,12 @@ async def currency_handle_callback(call: aiogram.types.CallbackQuery):
 
     :param call: вызов бота
     """
-    print('currency_handle_callback')
     choice = call.data
-    if choice == "Конвертер валют":
+    if choice == _("Конвертер валют"):
         await call.message.answer(
-            text="Выберите валюту, из которой нужно перевести",
+            text=_("Выберите валюту, из которой нужно перевести"),
             reply_markup=get_inline_keyboard_from_list(CURRENCIES_FROM))
-    elif choice == "Курс Валют":
+    elif choice == _("Курс Валют"):
         for i in CURRENCIES_FROM[1:]:
             res = Exchange(1).exchange(i.split()[0], "RUB")
             await call.message.answer("{} -> RUB: {}".format(i, res), parse_mode=aiogram.types.ParseMode.HTML)
@@ -78,11 +81,10 @@ async def exchange_currency_handle_callback(call: aiogram.types.CallbackQuery):
 
     :param call: вызов бота
     """
-    print('exchange_currency_handle_callback')
     global cur1
     cur1 = call.data.split()[0]
     await call.message.edit_text(
-        text="Выберите валюту, в которую нужно перевести",
+        text=_("Выберите валюту, в которую нужно перевести"),
         reply_markup=get_inline_keyboard_from_list(CURRENCIES_TO))
 
 
@@ -92,11 +94,9 @@ async def amount_currency_handle_callback(call: aiogram.types.CallbackQuery):
 
     :param call: вызов бота
     """
-    print('amount_currency_handle_callback')
     global cur1, cur2
     cur2 = call.data.split()[1]
-    print(cur1, cur2)
-    await call.message.answer(text="Какую сумму перевести?", parse_mode=aiogram.types.ParseMode.HTML)
+    await call.message.answer(text=_("Какую сумму перевести?"), parse_mode=aiogram.types.ParseMode.HTML)
 
 
 async def return_exchange_handle_callback(message: aiogram.types.Message):
@@ -105,10 +105,7 @@ async def return_exchange_handle_callback(message: aiogram.types.Message):
 
     :param call: вызов бота
     """
-    print('return_exchange_handle_callback')
-    print(cur1, cur2)
     res = Exchange(message.text).exchange(cur1, cur2)
-    print(res)
     await message.answer(text="{} -> {}: {}".format(cur1, cur2, res), parse_mode=aiogram.types.ParseMode.HTML)
 
 
@@ -118,7 +115,7 @@ def register_handlers(dp: aiogram.Dispatcher) -> None:
 
     :param dp: диспетчер бота
     """
-    dp.register_message_handler(currency_handler, regexp=r"^Валюты")
+    dp.register_message_handler(currency_handler, regexp=_(r"^Валюты"))
     dp.register_callback_query_handler(currency_handle_callback, text=CHOICE)
     dp.register_callback_query_handler(exchange_currency_handle_callback, text=CURRENCIES_FROM)
     dp.register_callback_query_handler(amount_currency_handle_callback, text=CURRENCIES_TO)

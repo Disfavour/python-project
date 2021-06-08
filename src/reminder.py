@@ -7,7 +7,11 @@ import aiogram.utils.markdown as fmt
 import nest_asyncio
 
 import database
+import gettext
+import os
 from stuff import get_inline_keyboard_from_list
+
+gettext.install("telbot", os.path.dirname(__file__))
 
 CHOICES = ["День Рождения", "ЖКХ", "Мобильная Связь", "Планер", "Подписки", "Приём Лекарств", "Удалить"]
 YESNO = ["Да", "Нет"]
@@ -21,7 +25,7 @@ async def reminder_handle(message: aiogram.types.Message):
 
     :param message: сообщение
     """
-    await message.answer("Выберите тип напоминания",
+    await message.answer(_("Выберите тип напоминания"),
                          reply_markup=get_inline_keyboard_from_list(CHOICES))
 
     @aiocron.crontab('* * * * *')
@@ -136,7 +140,7 @@ def register_handlers(dp: aiogram.Dispatcher) -> None:
 
     :param dp: диспетчер
     """
-    dp.register_message_handler(reminder_handle, regexp=r"^Напоминания")
+    dp.register_message_handler(reminder_handle, regexp=_(r"^Напоминания"))
     dp.register_callback_query_handler(reminder_handle_callback, text=CHOICES)
     dp.register_message_handler(reminder_handle_table, regexp=r"Напоминание: ([a-zA-Zа-яА-Я ]+ ((\d{2}\.\d{2}"
                                                               r"(\.\d{2,4})?( \d{2}:\d{2})?|"
