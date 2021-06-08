@@ -72,7 +72,7 @@ async def currency_handle_callback(call: aiogram.types.CallbackQuery):
     elif choice == _("Курс Валют"):
         for i in CURRENCIES_FROM[1:]:
             res = Exchange(1).exchange(i.split()[0], "RUB")
-            await call.message.answer("{} -> RUB: {}".format(i, res), parse_mode=aiogram.types.ParseMode.HTML)
+            await call.message.answer("1 {} = {} RUB".format(i, res), parse_mode=aiogram.types.ParseMode.HTML)
 
 
 async def exchange_currency_handle_callback(call: aiogram.types.CallbackQuery):
@@ -103,7 +103,7 @@ async def return_exchange_handle_callback(message: aiogram.types.Message):
     """
     Окончательный ответ на запрос конвертера валют.
 
-    :param call: вызов бота
+    :param message: вызов бота
     """
     res = Exchange(message.text).exchange(cur1, cur2)
     await message.answer(text="{} -> {}: {}".format(cur1, cur2, res), parse_mode=aiogram.types.ParseMode.HTML)
