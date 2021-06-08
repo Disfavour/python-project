@@ -11,6 +11,7 @@ import recipes
 import reminder
 import stuff
 import weather
+import shopping_lists
 
 import locale
 import os
@@ -101,6 +102,7 @@ class REGISTRATION:
         recipes.register_handlers(self.dp)
         reminder.register_handlers(self.dp)
         currencies.register_handlers(self.dp)
+        shopping_lists.register_handlers(self.dp)
 
         # Это последнее, иначе эхо-обработчик перебьёт другие.
         self.register_base_handlers()
