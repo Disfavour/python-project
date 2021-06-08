@@ -67,8 +67,8 @@ async def shopping_lists_handle_callback(call: aiogram.types.CallbackQuery):
 
 async def shopping_handle_lists(message: aiogram.types.Message):
     """
+    Сохранение списка.
 
-    Сохранение списка
     :param message: сообщение боту
     """
     shopping_lists = message.text

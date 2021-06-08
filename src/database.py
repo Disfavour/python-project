@@ -247,9 +247,10 @@ def fetch_by_ingreds(ingreds: list) -> list:
             connection.close()
             return res
 
+
 def take_all() -> list:
     """
-    Получить все записи из таблицы списков покупок
+    Получить все записи из таблицы списков покупок.
 
     :param id: идентификатор
     """
