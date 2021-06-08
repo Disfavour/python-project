@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-06-07 23:41+0300\n"
+"POT-Creation-Date: 2021-06-08 09:26+0300\n"
 "PO-Revision-Date: 2021-06-06 12:26+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -34,7 +34,7 @@ msgstr "To start work enter /start. "
 msgid "Документацию можно найти здесь:"
 msgstr "You can find documentation here:"
 
-#: src/__main__.py:46
+#: src/__main__.py:46 src/currencies.py:58
 msgid "Выберите функцию"
 msgstr "Choose function."
 
@@ -49,6 +49,86 @@ msgstr "What exactly?"
 #: src/afisha.py:53
 msgid "^Афиша$"
 msgstr "^Cultural events$"
+
+#: src/currencies.py:11 src/currencies.py:69
+msgid "Конвертер валют"
+msgstr "Currency converter"
+
+#: src/currencies.py:11 src/currencies.py:73
+msgid "Курс Валют"
+msgstr "Currency exchange rate"
+
+#: src/currencies.py:13
+msgid "RUB (Рубль)"
+msgstr "RUB (Ruble)"
+
+#: src/currencies.py:13
+msgid "EUR (Евро)"
+msgstr "EUR (Euro)"
+
+#: src/currencies.py:13
+msgid "USD (Доллар)"
+msgstr "USD (Dollar)"
+
+#: src/currencies.py:13
+msgid "GBP (Фунт стерлингов)"
+msgstr "GBP (Pound sterling)"
+
+#: src/currencies.py:14
+msgid "CNY (Китайский Юань)"
+msgstr "CNY (Chinese yuan)"
+
+#: src/currencies.py:14
+msgid "CHF (Швейцарский франк)"
+msgstr "CHF (Swiss franc)"
+
+#: src/currencies.py:14
+msgid "BYN (Белорусский рубль)"
+msgstr "BYN (Belarusian ruble)"
+
+#: src/currencies.py:15
+msgid "в RUB (Рубль)"
+msgstr "to RUB (Ruble)"
+
+#: src/currencies.py:15
+msgid "в EUR (Евро)"
+msgstr "to EUR (Euro)"
+
+#: src/currencies.py:15
+msgid "в USD (Доллар)"
+msgstr "to USD (Dollar)"
+
+#: src/currencies.py:15
+msgid "в GBP (Фунт стерлингов)"
+msgstr "to GBP (Pound sterling)"
+
+#: src/currencies.py:16
+msgid "в CNY (Китайский Юань)"
+msgstr "to CNY (Chinese yuan)"
+
+#: src/currencies.py:16
+msgid "в CHF (Швейцарский франк)"
+msgstr "to CHF (Swiss franc)"
+
+#: src/currencies.py:16
+msgid "в BYN (Белорусский рубль)"
+msgstr "to BYN (Belarusian ruble)"
+
+#: src/currencies.py:71
+msgid "Выберите валюту, из которой нужно перевести"
+msgstr "Choose the currency you want to convert from"
+
+#: src/currencies.py:89
+msgid "Выберите валюту, в которую нужно перевести"
+msgstr "Choose the currency you want to convert to"
+
+#: src/currencies.py:103
+msgid "Какую сумму перевести?"
+msgstr "Which sum?"
+
+#: src/currencies.py:125
+msgid "^Валюты"
+msgstr "^Currencies"
 
 #: src/database.py:15
 msgid "Ошибка при работе с базой данных "
@@ -124,7 +204,7 @@ msgstr "Next"
 
 #: src/recipes.py:46
 msgid "Нужен рецепт с определенными ингредиентами или любой?"
-msgstr "Do you need a recipe with certain ingredients or just any recipe?"
+msgstr "Do you need a recipe with certain ingredients or just any recipe?\n(All recipes are in Russian)"
 
 #: src/recipes.py:66
 msgid "Введите ингредиенты с большой буквы через запятую, "
@@ -160,6 +240,16 @@ msgstr "Recipes with such ingredients are over."
 msgid "^Кулинарные рецепты$"
 msgstr "^Recipes$"
 
+#: src/reminder.py:28
+msgid "Выберите тип напоминания"
+msgstr ""
+"This feature is available only in Russian.\n"
+"Выберите тип напоминания"
+
+#: src/reminder.py:143
+msgid "^Напоминания"
+msgstr "Reminders"
+
 #: src/stuff.py:9
 msgid "Гороскоп"
 msgstr "Horoscope"
@@ -194,7 +284,7 @@ msgstr "Recipes"
 
 #: src/stuff.py:11
 msgid "Валюты"
-msgstr ""
+msgstr "Currencies"
 
 #: src/stuff.py:35
 msgid "Ещё"
