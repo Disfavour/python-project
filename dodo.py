@@ -18,11 +18,13 @@ def task_docs():
         'task_dep': ['clean_docs'],
     }
 
+
 def task_gitclean():
     """Clean all generated files not tracked by GIT."""
     return {
             'actions': ['git clean -xdf'],
            }
+
 
 def task_test():
     """Perform tests."""
@@ -30,11 +32,13 @@ def task_test():
             'actions':['python -m unittest tests'],
             }
 
+
 def task_fill_db():
     """Create and fill tables."""
-    return {'actions': ['python3 -m src.database']}
-    #yield {'actions': ['python3 -m src.database'], 'name': 'create'}
-    #yield {'actions': ['python3 -m src.recipes_parsing'], 'name': 'fill'}
+    return {'actions': ['python3 src/database.py']}
+    #yield {'actions': ['python3 src/database.py'], 'name': 'create'}
+    #yield {'actions': ['python3 src/recipes_parsing.py'], 'name': 'fill'}
+
 
 def task_pot():
     """Re-create .pot ."""
@@ -65,6 +69,15 @@ def task_mo():
             'targets': ['src/en/LC_MESSAGES/telbot.mo'],
            }
 
+
+def task_build():
+    """Create full distribution."""
+    return {
+            'actions': ['python -m build'],
+            'task_dep': ['gitclean', 'mo', 'docs'],
+            }
+
+
 def task_style():
     """Check style against flake8."""
     return {
@@ -83,12 +96,13 @@ def task_check():
     """Perform all checks."""
     return {
             'actions': None,
-            'task_dep': ['style', 'docstyle', 'test']
+            'task_dep': ['style', 'docstyle']
            }
+
 
 def task_all():
     """Perform all build task."""
     return {
             'actions': None,
-            'task_dep': ['check', 'docs', 'mo', 'fill_db'],
+            'task_dep': ['check', 'mo', 'fill_db'],
             }
