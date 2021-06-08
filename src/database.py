@@ -156,7 +156,7 @@ def get_line_notif(line_data: str):
         return res
 
 
-def delete_table_data(t_name:str):
+def delete_table_data(t_name: str):
     """
     Добавить запись в таблицу.
 

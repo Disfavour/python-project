@@ -69,7 +69,7 @@ async def currency_handle_callback(call: aiogram.types.CallbackQuery):
     elif choice == "Курс Валют":
         for i in CURRENCIES_FROM[1:]:
             res = Exchange(1).exchange(i.split()[0], "RUB")
-            await call.message.answer("{} -> RUB: {}".format(i, res), parse_mode=aiogram.types.ParseMode.HTML)
+            await call.message.answer("1 {} = {} RUB".format(i, res), parse_mode=aiogram.types.ParseMode.HTML)
 
 
 async def exchange_currency_handle_callback(call: aiogram.types.CallbackQuery):
@@ -109,7 +109,7 @@ async def return_exchange_handle_callback(message: aiogram.types.Message):
     print(cur1, cur2)
     res = Exchange(message.text).exchange(cur1, cur2)
     print(res)
-    await message.answer(text="{} -> {}: {}".format(cur1, cur2, res), parse_mode=aiogram.types.ParseMode.HTML)
+    await message.answer(text="{} {} = {} {}".format(message.text, cur1, res, cur2), parse_mode=aiogram.types.ParseMode.HTML)
 
 
 def register_handlers(dp: aiogram.Dispatcher) -> None:
