@@ -1,5 +1,6 @@
 import unittest
 from src.recipes import form_answer
+from src.database import delete_table_data
 
 
 class TestBot(unittest.TestCase):
@@ -8,14 +9,17 @@ class TestBot(unittest.TestCase):
         rec1 = {"name": "Булочки с изюмом",
                 "ingrs": ["Мука", "Яйцо куриное", "Изюм"],
                 "link": "http://recipe"}
-        ans1 = '<b>Булочки с изюмом</b>\nИнгредиенты:\n 1) Мука\n' +\
-            '2) Яйцо куриное\n3) Изюм\n\n<a href="http://recipe">Булочки с изюмом</a>'
+        ans1 = '<b>Булочки с изюмом</b>\nИнгредиенты:\n 1) Мука\n' + \
+               '2) Яйцо куриное\n3) Изюм\n\n<a href="http://recipe">Булочки с изюмом</a>'
         self.assertEqual(form_answer(rec1), ans1)
         rec2 = {"name": "Омлет",
                 "ingrs": ["Яйцо куриное", "Соль", "Молоко"],
                 "link": "http://recipe"}
-        ans2 = '<b>Омлет</b>\nИнгредиенты:\n 1) Яйцо куриное\n2) Соль\n'+\
-                '3) Молоко\n\n<a href="http://recipe">Омлет</a>'
+        ans2 = '<b>Омлет</b>\nИнгредиенты:\n 1) Яйцо куриное\n2) Соль\n' + \
+               '3) Молоко\n\n<a href="http://recipe">Омлет</a>'
         self.assertEqual(form_answer(rec2), ans2)
         with self.assertRaises(KeyError):
             form_answer(dict())
+
+    def test_empty_delete_reminders(self):
+        self.assertEqual(delete_table_data("reminders"), 0)
