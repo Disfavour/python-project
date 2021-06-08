@@ -91,7 +91,7 @@ async def recipes_handle_ingreds(message: aiogram.types.Message):
     CNT = 0
     if len(RECIPES_LIST) != 0:
         await message.answer(
-            form_answer(RECIPES_LIST[CNT]),
+            form_answer(RECIPES_LIST[CNT][1]),
             parse_mode=aiogram.types.ParseMode.HTML,
             reply_markup=get_another_inline_keyboard(NEXT))
     else:
@@ -110,7 +110,7 @@ async def recipes_handle_ingreds_callback(call: aiogram.types.CallbackQuery):
     CNT += 1
     if CNT < len(RECIPES_LIST):
         await call.message.answer(
-            form_answer(RECIPES_LIST[CNT]),
+            form_answer(RECIPES_LIST[CNT][1]),
             parse_mode=aiogram.types.ParseMode.HTML,
             reply_markup=get_another_inline_keyboard(call.data))
     else:
