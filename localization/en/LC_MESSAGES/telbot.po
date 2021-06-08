@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-06-08 10:18+0300\n"
+"POT-Creation-Date: 2021-06-08 11:32+0300\n"
 "PO-Revision-Date: 2021-06-06 12:26+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -254,7 +254,9 @@ msgstr "Reminders"
 
 #: src/shopping_lists.py:39
 msgid "Выберите интересующее действие."
-msgstr "This feature is available only in Russian.\nВыберите интересующее действие."
+msgstr ""
+"This feature is available only in Russian.\n"
+"Выберите интересующее действие."
 
 #: src/shopping_lists.py:95
 msgid "^Списки покупок$"

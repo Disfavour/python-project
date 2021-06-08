@@ -261,7 +261,7 @@ def take_all() -> list:
             port="5432",
             database=DATABASE)
         cursor = connection.cursor()
-        cursor.execute(f"SELECT * FROM shopping_lists")
+        cursor.execute("SELECT * FROM shopping_lists")
         res = cursor.fetchall()
     except (Exception, Error) as error:
         print(ERROR_MESSAGE, error)
